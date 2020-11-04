@@ -32,9 +32,5 @@ build/
 ### VS Code ###
 .vscode/
 
-<<<<<<< HEAD
 application.properties
-=======
 myPlan/src/main/resources/application.properties
-
->>>>>>> f583381a813daf3c2633e875c44e200c8b161ddb
