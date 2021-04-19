@@ -35,12 +35,12 @@ public class CollaboratorService {
         }
     }
 	
-//    public Collaborator getCollaboratorByName(String lastName, String firstName, CollaboratorRepository collaboratorsRepository) {
-//        try {
-//        	Optional<Collaborator> optCollab = collaboratorsRepository.findByLastNameAndFirstNameLike(lastName, firstName);
-//        	return optCollab.get();
-//        }catch (Exception e) {
-//            return null;
-//        }
-//    }
+    public Collaborator getCollaboratorByName(String lastName, String firstName, CollaboratorRepository collaboratorsRepository) {
+        try {
+        	Optional<Collaborator> optCollab = collaboratorsRepository.findByLastNameAndFirstNameLike(lastName, firstName);
+        	return optCollab.get();
+        }catch (Exception e) {
+            return null;
+        }
+    }
 }
