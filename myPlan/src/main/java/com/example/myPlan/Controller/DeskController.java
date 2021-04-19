@@ -28,7 +28,7 @@ public class DeskController {
     public @ResponseBody
     String toto() {
         // This returns a JSON or XML with the users
-        return "totoalapage";
+        return "totoalaplage";
     }
 
     // Show Register page.

@@ -8,6 +8,6 @@ import com.example.myPlan.Entities.Collaborator;
 
 public interface CollaboratorRepository extends CrudRepository<Collaborator, Integer>{
 
-//	Optional<Collaborator> findByLastNameAndFirstNameLike(String LastName, String FirstName);
+	Optional<Collaborator> findByLastNameAndFirstNameLike(String LastName, String FirstName);
 
 }
