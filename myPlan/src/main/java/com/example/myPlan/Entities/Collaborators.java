@@ -1,15 +1,11 @@
 package com.example.myPlan.Entities;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
-
-import src.main.java.com.CESI.accessingdatamysql.Entity.GeneratedValue;
 
 @Entity
 public class Collaborators {
