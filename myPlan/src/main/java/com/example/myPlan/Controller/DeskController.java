@@ -59,6 +59,22 @@ public class DeskController {
         }
     }
 
+
+    // Show Register page.
+    @RequestMapping(value = "/deleteDesk", method = RequestMethod.GET)
+    public String deleteDesk(@RequestParam int id) {
+
+        Optional<Desk> optionalDesk = deskRepository.findById(id);
+        if (optionalDesk.isPresent()){
+            Desk desk = optionalDesk.get();
+            deskRepository.delete(desk);
+
+            return "delete";
+        } else {
+            return "Error";
+        }
+    }
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String saveRegister(Model model, //
                                @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
@@ -85,5 +101,8 @@ public class DeskController {
         }
         return "redirect:/toto";
     }
+
+
+
 
 }
