@@ -1,14 +1,18 @@
 package com.example.myPlan.Entities;
 
 import java.util.Date;
+import java.util.Optional;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+
+import Repositories.CollaboratorRepository;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
 @Entity
-public class Collaborators {
+public class Collaborator {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer Id;
@@ -21,7 +25,7 @@ public class Collaborators {
 
     private Date DepartureTime;
     
-    public Collaborators(String firstName, String lastName, Date enrollmentTime, Date departureTime) {
+    public Collaborator(String firstName, String lastName, Date enrollmentTime, Date departureTime) {
     	super();
     	FirstName = firstName;
     	LastName = lastName;
