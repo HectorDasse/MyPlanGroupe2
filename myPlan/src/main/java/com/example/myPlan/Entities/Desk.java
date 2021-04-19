@@ -1,9 +1,8 @@
 package com.example.myPlan.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -19,6 +18,13 @@ public class Desk {
         this.numero = numero;
         this.comment = comment;
     }
+
+	@OneToOne
+    @JoinTable(name = "T_Desk_Collaborator",
+        joinColumns = @JoinColumn(name = "id"),
+        inverseJoinColumns = @JoinColumn(name = "id"))
+    Collaborator collaborator = new Collaborator();
+
 
     public Desk() {
 
@@ -58,4 +64,12 @@ public class Desk {
                 ", comment='" + comment + '\'' +
                 '}';
     }
+
+    public List<Collaborator> getDesks() {
+		return desks;
+	}
+
+	public void setDesks(List<Collaborator> desks) {
+		this.desks = desks;
+	}
 }

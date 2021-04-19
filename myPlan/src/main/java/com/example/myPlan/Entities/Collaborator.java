@@ -37,6 +37,10 @@ public class Collaborator {
     	this.departureTime = departureTime;
     }
 
+	public Collaborator() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public Integer getId() {
         return id;
     }
