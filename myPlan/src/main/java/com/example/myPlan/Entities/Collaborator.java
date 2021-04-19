@@ -6,8 +6,6 @@ import java.util.Optional;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-import Repositories.CollaboratorRepository;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
