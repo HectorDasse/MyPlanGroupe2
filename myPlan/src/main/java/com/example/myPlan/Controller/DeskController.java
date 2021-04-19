@@ -75,7 +75,8 @@ public class DeskController {
                 DeskService.saveDesk(appUserForm.getNumero(), appUserForm.getComment(), deskRepository);
             } else {
                 //update
-                DeskService.updateDesk(appUserForm, appUserForm.getNumero(), appUserForm.getComment(), deskRepository);            }
+                DeskService.updateDesk(appUserForm, appUserForm.getNumero(), appUserForm.getComment(), deskRepository);
+            }
         }
         // Other error!!
         catch (Exception e) {
