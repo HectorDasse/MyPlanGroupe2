@@ -1,9 +1,7 @@
 package com.example.myPlan.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -15,9 +13,21 @@ public class Desk {
 
     public int numero;
 
-    public Desk(int numero, String comment) {
+    @OneToOne
+    public Device devices;
+
+    public Device getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Device devices) {
+        this.devices = devices;
+    }
+
+    public Desk(int numero, String comment, Device device) {
         this.numero = numero;
         this.comment = comment;
+        this.devices = device;
     }
 
     public Desk() {

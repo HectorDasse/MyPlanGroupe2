@@ -31,7 +31,7 @@
     <table>
         <tr>
             <td>Numero</td>
-            <td><input type="text" th:field="*{Numero}" /> </td>
+            <td><input type="text" th:field="*{numero}" /> </td>
         </tr>
         <tr>
             <td>Commentaire</td>
@@ -39,6 +39,16 @@
         </tr>
         <tr>
             <td><input type="hidden" th:field="*{id}" /> </td>
+        </tr>
+        <tr>
+            <td>Device</td>
+            <td>
+                <select th:field="*{devices}">
+                    <option value=""> -- </option>
+                    <option th:each="device : ${DevicesObject}"
+                            th:value="${device.id}"
+                            th:utext="${device.name}"/>
+                </select>
         </tr>
 
         <tr>
