@@ -1,9 +1,8 @@
 package com.example.myPlan.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -58,4 +57,13 @@ public class Desk {
                 ", comment='" + comment + '\'' +
                 '}';
     }
+<<<<<<< HEAD
+=======
+
+    @OneToOne
+    @JoinTable(name = "T_Desk_Collaborator",
+        joinColumns = @JoinColumn(name = "id"),
+        inverseJoinColumns = @JoinColumn(name = "id"))
+    private List<Desk> Desk = new ArrayList<>();
+>>>>>>> main
 }
