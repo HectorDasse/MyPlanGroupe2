@@ -11,6 +11,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.security.krb5.internal.crypto.Des;
+
+import java.util.Optional;
 
 
 @Controller
@@ -25,7 +28,7 @@ public class DeskController {
     public @ResponseBody
     String toto() {
         // This returns a JSON or XML with the users
-        return "toto";
+        return "totoalapage";
     }
 
     // Show Register page.
@@ -36,9 +39,25 @@ public class DeskController {
         model.addAttribute("title", "Ajouter un bureaux");
         model.addAttribute("appUserForm", form);
 
-        return "addpersonne";
+        return "addDesk";
     }
 
+    // Show Register page.
+    @RequestMapping(value = "/updateDesk", method = RequestMethod.GET)
+    public String updateDesk(@RequestParam int id, Model model) {
+
+        Optional<Desk> optionalDesk = deskRepository.findById(id);
+        if (optionalDesk.isPresent()){
+            Desk desk = optionalDesk.get();
+
+            model.addAttribute("title", "Ajouter un bureaux");
+            model.addAttribute("appUserForm", desk);
+
+            return "addDesk";
+        } else {
+            return "Error";
+        }
+    }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String saveRegister(Model model, //
@@ -48,7 +67,7 @@ public class DeskController {
 
         // Validate result
         if (result.hasErrors()) {
-            return "addpersonne";
+            return "addDesk";
         }
         try {
 
@@ -62,9 +81,9 @@ public class DeskController {
         catch (Exception e) {
             System.out.println("error");
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
-            return "addpersonne";
+            return "addDesk";
         }
-        return "redirect:/";
+        return "redirect:/toto";
     }
 
 }
