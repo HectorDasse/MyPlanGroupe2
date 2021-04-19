@@ -1,12 +1,8 @@
 package com.example.myPlan.Entities;
 
 import java.util.Date;
-import java.util.Optional;
-
 import javax.persistence.Entity;
 import javax.persistence.Id;
-
-import Repositories.CollaboratorRepository;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,69 +11,69 @@ import javax.persistence.GenerationType;
 public class Collaborator {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer Id;
+    private Integer id;
 
-    private String FirstName;
+    private String firstName;
 
-	private String LastName;
+	private String lastName;
 
-    private Date EnrollmentTime;
+    private Date enrollmentTime;
 
-    private Date DepartureTime;
+    private Date departureTime;
     
     public Collaborator(String firstName, String lastName, Date enrollmentTime, Date departureTime) {
     	super();
-    	FirstName = firstName;
-    	LastName = lastName;
-    	EnrollmentTime = enrollmentTime;
-    	DepartureTime = departureTime;
+    	this.firstName = firstName;
+    	this.lastName = lastName;
+    	this.enrollmentTime = enrollmentTime;
+    	this.departureTime = departureTime;
     }
 
 	public Integer getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Integer id) {
-        this.Id = id;
+        this.id = id;
     }
     
     public Date getEmploymentTime() {
-    	return EnrollmentTime;
+    	return enrollmentTime;
     }
     
     public void setEmploymentTime(Date employmentTime) {
-    	EnrollmentTime = employmentTime;
+    	this.enrollmentTime = employmentTime;
     }
 
     public Date getDepartureTime() {
-    	return DepartureTime;
+    	return departureTime;
     }
     
     public void setDepartureTime(Date departureTime) {
-    	DepartureTime = departureTime;
+    	this.departureTime = departureTime;
     }
     
     public String getFirstName() {
-        return FirstName;
+        return firstName;
     }
 
     public void setFirstName(String name) {
-        this.FirstName = name;
+        this.firstName = name;
     }
 
     public String getLastName() {
-        return LastName;
+        return lastName;
     }
 
     public void setLastName(String lastName) {
-        this.LastName = lastName;
+        this.lastName = lastName;
     }
 
 	@Override
 	public String toString() {
-		return "Collaborator [" + (Id != null ? "Id = " + Id + ", " : "")
-				+ (FirstName != null ? "First name = " + FirstName + ", " : "") + (LastName != null ? "Last name = " + LastName : "")
-				+ (EnrollmentTime != null ? "Employment time = " + EnrollmentTime.toString() : "")
-				+ (DepartureTime != null ? "Departure time = " + DepartureTime.toString() : "") + "]";
+		return "Collaborator [" + (id != null ? "Id = " + id + ", " : "")
+				+ (firstName != null ? "First name = " + firstName + ", " : "") + (lastName != null ? "Last name = " + lastName : "")
+				+ (enrollmentTime != null ? "Employment time = " + enrollmentTime.toString() : "")
+				+ (departureTime != null ? "Departure time = " + departureTime.toString() : "") + "]";
 	}
 }
