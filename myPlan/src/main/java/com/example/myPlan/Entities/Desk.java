@@ -8,9 +8,18 @@ import javax.persistence.Id;
 public class Desk {
 
     @Id
-    private Long id;
+    private Integer id;
 
     public int numero;
+
+    public Desk(int numero, String comment) {
+        this.numero = numero;
+        this.comment = comment;
+    }
+
+    public Desk() {
+
+    }
 
     public String getComment() {
         return comment;
@@ -30,11 +39,11 @@ public class Desk {
         this.numero = numero;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
