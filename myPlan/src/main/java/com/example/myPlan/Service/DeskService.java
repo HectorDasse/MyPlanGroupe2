@@ -38,4 +38,16 @@ public class DeskService {
         return true;
     };
 
+    public static boolean deleteDesk(Desk desk, DeskRepository deskRepository){
+        try {
+            deskRepository.delete(desk);
+
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
+
+
+    }
+
 }
