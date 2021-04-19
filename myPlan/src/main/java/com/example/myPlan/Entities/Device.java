@@ -9,8 +9,8 @@ import javax.persistence.Id;
 public class Device {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
-    private String name;
+    public Integer id;
+    public String name;
     private String type; //interne/externe
     private String number;
 
@@ -18,6 +18,10 @@ public class Device {
         this.name = name;
         this.type = type;
         this.number = number;
+    }
+
+    public Device() {
+
     }
 
 

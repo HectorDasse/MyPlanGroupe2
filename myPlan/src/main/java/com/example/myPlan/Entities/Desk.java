@@ -13,12 +13,21 @@ public class Desk {
 
     public int numero;
 
-    @OneToMany
-    public List<Device> devices;
+    @OneToOne
+    public Device devices;
 
-    public Desk(int numero, String comment) {
+    public Device getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Device devices) {
+        this.devices = devices;
+    }
+
+    public Desk(int numero, String comment, Device device) {
         this.numero = numero;
         this.comment = comment;
+        this.devices = device;
     }
 
     public Desk() {
