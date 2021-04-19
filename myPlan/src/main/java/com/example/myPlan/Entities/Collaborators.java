@@ -5,16 +5,11 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 
-import src.main.java.com.CESI.accessingdatamysql.Entity.ClientRepository;
-import src.main.java.com.CESI.accessingdatamysql.Entity.CompteCourant;
-import src.main.java.com.CESI.accessingdatamysql.Entity.CompteEpargne;
 import src.main.java.com.CESI.accessingdatamysql.Entity.GeneratedValue;
-import src.main.java.com.CESI.accessingdatamysql.Entity.Id;
-import src.main.java.com.CESI.accessingdatamysql.Entity.JoinColumn;
-import src.main.java.com.CESI.accessingdatamysql.Entity.JoinTable;
-import src.main.java.com.CESI.accessingdatamysql.Entity.OneToMany;
-import src.main.java.com.CESI.accessingdatamysql.Entity.main;
 
 @Entity
 public class Collaborators {
@@ -24,11 +19,19 @@ public class Collaborators {
 
     private String FirstName;
 
-    private String LastName;
+	private String LastName;
 
     private Date EnrollmentTime;
 
     private Date DepartureTime;
+    
+    public Collaborators(String firstName, String lastName, Date enrollmentTime, Date departureTime) {
+    	super();
+    	FirstName = firstName;
+    	LastName = lastName;
+    	EnrollmentTime = enrollmentTime;
+    	DepartureTime = departureTime;
+    }
 
 	public Integer getId() {
         return Id;
