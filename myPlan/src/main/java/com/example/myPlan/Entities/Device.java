@@ -20,6 +20,7 @@ public class Device {
         this.number = number;
     }
 
+
     public Integer getId() {
         return id;
     }
