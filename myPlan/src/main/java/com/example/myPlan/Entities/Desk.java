@@ -19,6 +19,13 @@ public class Desk {
         this.comment = comment;
     }
 
+	@OneToOne
+    @JoinTable(name = "T_Desk_Collaborator",
+        joinColumns = @JoinColumn(name = "id"),
+        inverseJoinColumns = @JoinColumn(name = "id"))
+    Collaborator collaborator = new Collaborator();
+
+
     public Desk() {
 
     }
@@ -58,9 +65,11 @@ public class Desk {
                 '}';
     }
 
-    @OneToOne
-    @JoinTable(name = "T_Desk_Collaborator",
-        joinColumns = @JoinColumn(name = "id"),
-        inverseJoinColumns = @JoinColumn(name = "id"))
-    private List<Desk> Desk = new ArrayList<>();
+    public List<Collaborator> getDesks() {
+		return desks;
+	}
+
+	public void setDesks(List<Collaborator> desks) {
+		this.desks = desks;
+	}
 }
