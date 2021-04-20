@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import sun.security.krb5.internal.crypto.Des;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.List;
 
 
 @Controller
@@ -27,8 +27,6 @@ public class DeskController {
 
     @Autowired
     private DeskRepository deskRepository;
-
-    @Autowired
     private DeviceRepository deviceRepository;
 
     @Autowired
@@ -47,8 +45,13 @@ public class DeskController {
     public String addDesk(Model model) {
 
         Desk form = new Desk();
+<<<<<<< HEAD
         model = DeskService.setModelFormulaire(model, form, deviceRepository, collaboratorRepository);
 
+=======
+        model.addAttribute("title", "Ajouter un bureaux");
+        model.addAttribute("appUserForm", form);
+>>>>>>> main
 
         return "addDesk";
     }
@@ -60,26 +63,18 @@ public class DeskController {
         Optional<Desk> optionalDesk = deskRepository.findById(id);
         if (optionalDesk.isPresent()){
             Desk desk = optionalDesk.get();
+<<<<<<< HEAD
 
             model = DeskService.setModelFormulaire(model, desk, deviceRepository, collaboratorRepository);
+=======
+            
+            List<Device> devices = deviceRepository.findAll();
+            model.addAttribute("DevicesObject", devices);
+            model.addAttribute("title", "Ajouter un bureau");
+            model.addAttribute("appUserForm", desk);
+>>>>>>> main
 
             return "addDesk";
-        } else {
-            return "Error";
-        }
-    }
-
-
-    // Show Register page.
-    @RequestMapping(value = "/deleteDesk", method = RequestMethod.GET)
-    public String deleteDesk(@RequestParam int id) {
-
-        Optional<Desk> optionalDesk = deskRepository.findById(id);
-        if (optionalDesk.isPresent()){
-            Desk desk = optionalDesk.get();
-            deskRepository.delete(desk);
-
-            return "delete";
         } else {
             return "Error";
         }
@@ -101,6 +96,7 @@ public class DeskController {
                 DeskService.addDesk(appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), appUserForm.getCollaborator(), deskRepository);
             } else {
                 //update
+<<<<<<< HEAD
 
                 if (DeskService.updateDesk(appUserForm.getId(), appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), appUserForm.getCollaborator(), deskRepository)){
                     return "redirect:/toto";
@@ -108,6 +104,9 @@ public class DeskController {
                     model.addAttribute("errorMessage", "Error: " + "Item not found");
                     return "addDesk";
                 }
+=======
+                DeskService.updateDesk(appUserForm, appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), deskRepository);
+>>>>>>> main
             }
         }
         // Other error!!
@@ -119,6 +118,7 @@ public class DeskController {
         return "redirect:/toto";
     }
 
+<<<<<<< HEAD
     @RequestMapping(value = "/listDesk", method = RequestMethod.GET)
     public String listDesk(Model model) {
         List<Desk> desks = deskRepository.findAll();
@@ -127,4 +127,6 @@ public class DeskController {
     }
 
 
+=======
+>>>>>>> main
 }

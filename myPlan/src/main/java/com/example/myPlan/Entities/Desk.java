@@ -31,7 +31,12 @@ public class Desk {
         this.collaborator = collaborator;
     }
 
+<<<<<<< HEAD
     public Desk() {
+=======
+	@OneToOne
+    Collaborator collaborator = new Collaborator();
+>>>>>>> main
 
     }
 
