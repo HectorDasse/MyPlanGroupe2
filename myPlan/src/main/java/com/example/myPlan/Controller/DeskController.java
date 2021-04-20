@@ -119,7 +119,7 @@ public class DeskController {
                 //update
 
                 if (DeskService.updateDesk(appUserForm.getId(), appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), appUserForm.getCollaborator(), deskRepository)){
-                    return "redirect:/toto";
+                    return "redirect:/desk/listDesk";
                 } else {
                     model.addAttribute("errorMessage", "Error: " + "Item not found");
                     return "addDesk";
