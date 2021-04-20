@@ -13,7 +13,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sun.security.krb5.internal.crypto.Des;
 
 import java.util.List;
 import java.util.Optional;
@@ -101,7 +100,7 @@ public class DeskController {
                 DeskService.saveDesk(appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), deskRepository);
             } else {
                 //update
-                DeskService.updateDesk(appUserForm, appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), deskRepository);            }
+
         }
         // Other error!!
         catch (Exception e) {

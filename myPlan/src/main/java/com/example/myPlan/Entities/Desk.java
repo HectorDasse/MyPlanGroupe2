@@ -80,11 +80,12 @@ public class Desk {
                 '}';
     }
 
-    public List<Collaborator> getDesks() {
-		return desks;
+	public Collaborator getCollaborator() {
+		return collaborator;
 	}
 
-	public void setDesks(List<Collaborator> desks) {
-		this.desks = desks;
+	public void setCollaborator(Collaborator collaborator) {
+		this.collaborator = collaborator;
 	}
+
 }
