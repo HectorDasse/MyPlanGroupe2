@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
 <meta charset="UTF-8">
@@ -25,16 +26,18 @@
 	</tr>
 	<tr>
 		<td>
-			<div>Modifier un collaborateur</div>
-			<input type="button" value="Modifier un collaborateur" onclick="document.location.href='collaborator/updateCollaborator?id=' + document.getElementById('collabNumber').value;"/>
-			<input id="collabNumber" type="number" max="100"/>
-			
-			<select th:field="*{collaborator}">
-			    <option value=""> -- </option>
-			    <option th:each="itemCollaborator : ${collaboratorObject}"
-			            th:value="${itemCollaborator.id}"
-			            th:utext="${itemCollaborator.firstName}" />
-			</select>
+			<form th:object="${appUserForm}" method="POST">
+				<div>Modifier un collaborateur</div>
+				<input type="button" value="Modifier un collaborateur" onclick="document.location.href='collaborator/updateCollaborator?id=' + document.getElementById('collabNumber').value;"/>
+				<input id="collabNumber" type="number" max="100"/>
+				
+				<select th:field="*{collaborator}">
+				    <option value=""> -- </option>
+				    <option th:each="itemCollaborator : ${collaboratorObject}"
+				            th:value="${itemCollaborator.id}"
+				            th:utext="${itemCollaborator.firstName}" />
+				</select>
+			</form>
 		</td>
 	</tr>
 	<tr>
