@@ -4,6 +4,8 @@ import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 
@@ -17,9 +19,15 @@ public class Collaborator {
 
 	private String lastName;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date enrollmentTime;
 
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date departureTime;
+    
+    public Collaborator() {
+    	
+    }
     
     public Collaborator(String firstName, String lastName, Date enrollmentTime, Date departureTime) {
     	super();
@@ -37,12 +45,12 @@ public class Collaborator {
         this.id = id;
     }
     
-    public Date getEmploymentTime() {
+    public Date getEnrollmentTime() {
     	return enrollmentTime;
     }
     
-    public void setEmploymentTime(Date employmentTime) {
-    	this.enrollmentTime = employmentTime;
+    public void setEnrollmentTime(Date EnrollmentTime) {
+    	this.enrollmentTime = EnrollmentTime;
     }
 
     public Date getDepartureTime() {
@@ -73,7 +81,7 @@ public class Collaborator {
 	public String toString() {
 		return "Collaborator [" + (id != null ? "Id = " + id + ", " : "")
 				+ (firstName != null ? "First name = " + firstName + ", " : "") + (lastName != null ? "Last name = " + lastName : "")
-				+ (enrollmentTime != null ? "Employment time = " + enrollmentTime.toString() : "")
+				+ (enrollmentTime != null ? "Enrollment time = " + enrollmentTime.toString() : "")
 				+ (departureTime != null ? "Departure time = " + departureTime.toString() : "") + "]";
 	}
 }

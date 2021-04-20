@@ -4,17 +4,40 @@ import java.util.Date;
 import java.util.Optional;
 
 import com.example.myPlan.Entities.Collaborator;
+import com.example.myPlan.Entities.Desk;
 import com.example.myPlan.Repository.CollaboratorRepository;
+import com.example.myPlan.Repository.DeskRepository;
 
 public class CollaboratorService {
-	public boolean saveCollaborator(String firstName, String lastName, Date enrollmentTime, Date departureTime, CollaboratorRepository collaboratorsRepository) {
+	public static boolean saveCollaborator(String firstName, String lastName, Date enrollmentTime, Date departureTime, CollaboratorRepository collaboratorRepository) {
         try {
         	Collaborator collaborators = new Collaborator (firstName, lastName, enrollmentTime, departureTime);
-            collaboratorsRepository.save(collaborators);
+            collaboratorRepository.save(collaborators);
             return true;
         }catch (Exception e) {
             return false;
         }
+    }
+	
+
+
+    public static boolean updateCollaborator(Collaborator collaborator, String firstName, String lastName, Date enrollmentTime, Date departureTime, CollaboratorRepository collaboratorRepository) {
+        try {
+            Optional<Collaborator> collaboratorToUpdate = collaboratorRepository.findById(collaborator.getId());
+            if (collaboratorToUpdate.isPresent()) {
+            	Collaborator collaboratorUpdated = collaboratorToUpdate.get();
+                collaboratorUpdated.setFirstName(firstName);
+                collaboratorUpdated.setLastName(lastName);
+                collaboratorUpdated.setEnrollmentTime(enrollmentTime);
+                collaboratorUpdated.setDepartureTime(departureTime);
+
+                collaboratorRepository.save(collaboratorUpdated);
+
+            }
+        } catch (Exception e) {
+            return false;
+        }
+        return true;
     }
 	
     public boolean deleteCollaborator(Collaborator collaborators, CollaboratorRepository collaboratorsRepository) {
@@ -35,7 +58,7 @@ public class CollaboratorService {
         }
     }
 	
-    public Collaborator getCollaboratorByName(String lastName, String firstName, CollaboratorRepository collaboratorsRepository) {
+    public static Collaborator getCollaboratorByName(String firstName, String lastName, CollaboratorRepository collaboratorsRepository) {
         try {
         	Optional<Collaborator> optCollab = collaboratorsRepository.findByLastNameAndFirstNameLike(lastName, firstName);
         	return optCollab.get();
@@ -43,4 +66,6 @@ public class CollaboratorService {
             return null;
         }
     }
+
+
 }

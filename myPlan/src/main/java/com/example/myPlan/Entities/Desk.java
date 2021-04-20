@@ -1,8 +1,6 @@
 package com.example.myPlan.Entities;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 
 @Entity
@@ -14,10 +12,29 @@ public class Desk {
 
     public int numero;
 
-    public Desk(int numero, String comment) {
+    @OneToOne
+    public Device devices;
+
+    public Device getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Device devices) {
+        this.devices = devices;
+    }
+
+    public Desk(int numero, String comment, Device device) {
         this.numero = numero;
         this.comment = comment;
+        this.devices = device;
     }
+
+	@OneToOne
+    @JoinTable(name = "T_Desk_Collaborator",
+        joinColumns = @JoinColumn(name = "id"),
+        inverseJoinColumns = @JoinColumn(name = "id"))
+    Collaborator collaborator = new Collaborator();
+
 
     public Desk() {
 
@@ -57,13 +74,13 @@ public class Desk {
                 ", comment='" + comment + '\'' +
                 '}';
     }
-<<<<<<< HEAD
-=======
 
-    @OneToOne
-    @JoinTable(name = "T_Desk_Collaborator",
-        joinColumns = @JoinColumn(name = "id"),
-        inverseJoinColumns = @JoinColumn(name = "id"))
-    private List<Desk> Desk = new ArrayList<>();
->>>>>>> main
+	public Collaborator getCollaborator() {
+		return collaborator;
+	}
+
+	public void setCollaborator(Collaborator collaborator) {
+		this.collaborator = collaborator;
+	}
+
 }
