@@ -1,8 +1,10 @@
 package com.example.myPlan.Controller;
 
 
+import com.example.myPlan.Entities.Collaborator;
 import com.example.myPlan.Entities.Desk;
 import com.example.myPlan.Entities.Device;
+import com.example.myPlan.Repository.CollaboratorRepository;
 import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Repository.DeviceRepository;
 import com.example.myPlan.Service.DeskService;
@@ -13,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.util.Optional;
 import java.util.List;
@@ -25,6 +28,9 @@ public class DeskController {
     @Autowired
     private DeskRepository deskRepository;
     private DeviceRepository deviceRepository;
+
+    @Autowired
+    private CollaboratorRepository collaboratorRepository;
 
 
     @GetMapping(path="/toto")
@@ -39,6 +45,8 @@ public class DeskController {
     public String addDesk(Model model) {
 
         Desk form = new Desk();
+        model = DeskService.setModelFormulaire(model, form, deviceRepository, collaboratorRepository);
+
         model.addAttribute("title", "Ajouter un bureaux");
         model.addAttribute("appUserForm", form);
 
@@ -52,6 +60,8 @@ public class DeskController {
         Optional<Desk> optionalDesk = deskRepository.findById(id);
         if (optionalDesk.isPresent()){
             Desk desk = optionalDesk.get();
+
+            model = DeskService.setModelFormulaire(model, desk, deviceRepository, collaboratorRepository);
             
             List<Device> devices = deviceRepository.findAll();
             model.addAttribute("DevicesObject", devices);
@@ -76,11 +86,18 @@ public class DeskController {
         }
         try {
 
-            if (appUserForm.getId() == null){
-                DeskService.saveDesk(appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), deskRepository);
+            if (appUserForm.getId() == null) {
+                DeskService.addDesk(appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), appUserForm.getCollaborator(), deskRepository);
             } else {
                 //update
-                DeskService.updateDesk(appUserForm, appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), deskRepository);
+
+                if (DeskService.updateDesk(appUserForm.getId(), appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), appUserForm.getCollaborator(), deskRepository)){
+                    return "redirect:/toto";
+                } else {
+                    model.addAttribute("errorMessage", "Error: " + "Item not found");
+                    return "addDesk";
+                }
+//                DeskService.updateDesk(appUserForm, appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), deskRepository);
             }
         }
         // Other error!!
@@ -92,4 +109,10 @@ public class DeskController {
         return "redirect:/toto";
     }
 
+    @RequestMapping(value = "/listDesk", method = RequestMethod.GET)
+    public String listDesk(Model model) {
+        List<Desk> desks = deskRepository.findAll();
+        model.addAttribute("deskList", desks);
+        return "listDesk";
+    }
 }
