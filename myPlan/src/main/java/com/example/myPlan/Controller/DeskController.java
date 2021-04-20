@@ -2,7 +2,9 @@ package com.example.myPlan.Controller;
 
 
 import com.example.myPlan.Entities.Desk;
+import com.example.myPlan.Entities.Device;
 import com.example.myPlan.Repository.DeskRepository;
+import com.example.myPlan.Repository.DeviceRepository;
 import com.example.myPlan.Service.DeskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
+import java.util.List;
 
 
 @Controller
@@ -21,6 +24,7 @@ public class DeskController {
 
     @Autowired
     private DeskRepository deskRepository;
+    private DeviceRepository deviceRepository;
 
 
     @GetMapping(path="/toto")
@@ -48,8 +52,10 @@ public class DeskController {
         Optional<Desk> optionalDesk = deskRepository.findById(id);
         if (optionalDesk.isPresent()){
             Desk desk = optionalDesk.get();
-
-            model.addAttribute("title", "Ajouter un bureaux");
+            
+            List<Device> devices = deviceRepository.findAll();
+            model.addAttribute("DevicesObject", devices);
+            model.addAttribute("title", "Ajouter un bureau");
             model.addAttribute("appUserForm", desk);
 
             return "addDesk";

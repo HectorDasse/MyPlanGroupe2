@@ -30,7 +30,6 @@ public class Desk {
     }
 
 	@OneToOne
-    @JoinTable(name = "T_Desk_Collaborator")
     Collaborator collaborator = new Collaborator();
 
 
