@@ -2,31 +2,30 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
-<meta charset="UTF-8">
-<link rel="stylesheet" th:href="@{/css/main.css}">
-
-<title>My plan --- menu</title>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+	
+	<title>My plan --- menu</title>
 </head>
 <body>
 <table>
 	<tr>
-		<td>
+		<td class="line">
 			<input type="button" value="Ajouter un collaborateur" onclick="document.location.href='collaborator/addCollaborator';"/>
 		</td>
 	</tr>
 	<tr>
-		<td>
+		<td class="line">
 			<input type="button" value="Ajouter un bureau" onclick="document.location.href='desk/addDesk';"/>
 		</td>
 	</tr>
 	<tr>
-		<td>
+		<td class="line">
 			<input type="button" value="Ajouter un matériel" onclick="document.location.href='device/addDevice';"/>
 		</td>
 	</tr>
 	<tr>
-		<td>
-			<div>Modifier un collaborateur</div>
+		<td class="line">
 			<input type="button" value="Modifier un collaborateur" onclick="document.location.href='collaborator/updateCollaborator?id=' + document.getElementById('collabNumber').value;"/>
 			
 			<select>
@@ -39,8 +38,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>
-			<div>Modifier un bureau</div>
+		<td class="line">
 			<input type="button" value="Modifier un bureau" onclick="document.location.href='desk/updateDesk?id=' + document.getElementById('deskNumber').value;"/>
 			
 			<select>
@@ -53,8 +51,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>
-			<div>Modifier un matériel</div>
+		<td class="line">
 			<input type="button" value="Modifier un matériel" onclick="document.location.href='device/updateDevice?id=' + document.getElementById('deviceNumber').value;"/>
 			
 			<select>

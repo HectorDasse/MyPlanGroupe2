@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:utext="${title}"></title>
-    <style>
+    <!--style>
         th, td {
             padding: 5px;
         }
@@ -15,7 +15,8 @@
             color: red;
             font-style: italic;
         }
-    </style>
+    </style-->
+	<link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 <body>
 
@@ -29,27 +30,27 @@
 
 <form th:action="@{/collaborator/register}" th:object="${appUserForm}" method="POST">
     <table>
-        <tr>
+        <tr class="line">
             <td>First name</td>
             <td><input type="text" th:field="*{FirstName}" required/> </td>
         </tr>
-        <tr>
+        <tr class="line">
             <td>Last name</td>
             <td><input type="text" th:field="*{LastName}" required/> </td>
         </tr>
-        <tr>
+        <tr class="line">
             <td>Enrollment time</td>
             <td><input type="date" th:field="*{EnrollmentTime}" required/> </td>
         </tr>
-        <tr>
+        <tr class="line">
             <td>Departure time</td>
             <td><input type="date" th:field="*{DepartureTime}" /> </td>
         </tr>
-        <tr>
+        <tr class="line">
             <td><input type="hidden" th:field="*{id}" /> </td>
         </tr>
 
-        <tr>
+        <tr class="line">
             <td>&nbsp;</td>
             <td>
                 <input type="submit" value="Submit" />
