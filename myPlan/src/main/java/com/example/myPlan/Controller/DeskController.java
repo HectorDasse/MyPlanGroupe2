@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-//import sun.security.krb5.internal.crypto.Des;
 
 import java.util.Optional;
 import java.util.List;
@@ -27,6 +26,8 @@ public class DeskController {
 
     @Autowired
     private DeskRepository deskRepository;
+
+    @Autowired
     private DeviceRepository deviceRepository;
 
     @Autowired
@@ -45,10 +46,7 @@ public class DeskController {
     public String addDesk(Model model) {
 
         Desk form = new Desk();
-        model = DeskService.setModelFormulaire(model, form, deviceRepository, collaboratorRepository);
-
-        model.addAttribute("title", "Ajouter un bureaux");
-        model.addAttribute("appUserForm", form);
+        model = DeskService.setModelFormulaire(model, form, "Ajouter un bureau", deviceRepository, collaboratorRepository);
 
         return "addDesk";
     }
@@ -61,18 +59,47 @@ public class DeskController {
         if (optionalDesk.isPresent()){
             Desk desk = optionalDesk.get();
 
-            model = DeskService.setModelFormulaire(model, desk, deviceRepository, collaboratorRepository);
-            
-            List<Device> devices = deviceRepository.findAll();
-            model.addAttribute("DevicesObject", devices);
-            model.addAttribute("title", "Ajouter un bureau");
-            model.addAttribute("appUserForm", desk);
+            model = DeskService.setModelFormulaire(model, desk, "Modifier un bureau", deviceRepository, collaboratorRepository);
+
 
             return "addDesk";
         } else {
             return "Error";
         }
     }
+
+    @RequestMapping(value = "/redirectUpdate", method = RequestMethod.POST)
+    public String redirectUpdate(Model model, //
+                         @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
+                         BindingResult result, //
+                         final RedirectAttributes redirectAttributes) {
+
+        // Validate result
+        if (result.hasErrors()) {
+            System.out.println("error");
+            model.addAttribute("errorMessage", "Error: ");
+            return "desk/listDesk";
+        }
+        try {
+            Optional<Desk> optionalDesk = deskRepository.findById(appUserForm.getId());
+            if (optionalDesk.isPresent()){
+                Desk desk = optionalDesk.get();
+                return "redirect:updateDesk?id=" + desk.getId();
+            } else {
+                System.out.println("error desk pas trouvé\"");
+                model.addAttribute("errorMessage", "Error: desk pas trouvé\"");
+                return "redirect:desk/listDesk";
+            }
+
+        }
+        // Other error!!
+        catch (Exception e) {
+            System.out.println("error get desk");
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "desk/listDesk";
+        }
+    }
+
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String saveRegister(Model model, //
@@ -102,7 +129,7 @@ public class DeskController {
         }
         // Other error!!
         catch (Exception e) {
-            System.out.println("error");
+            System.out.println("error " + e.getMessage());
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "addDesk";
         }
@@ -113,6 +140,42 @@ public class DeskController {
     public String listDesk(Model model) {
         List<Desk> desks = deskRepository.findAll();
         model.addAttribute("deskList", desks);
+        Desk desk = new Desk();
+        model.addAttribute("appUserForm", desk);
         return "listDesk";
     }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(Model model, //
+                               @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
+                               BindingResult result, //
+                               final RedirectAttributes redirectAttributes) {
+
+        // Validate result
+        if (result.hasErrors()) {
+            System.out.println("error Error: formulaire");
+            model.addAttribute("errorMessage", "Error: formulaire");
+            return "desk/listDesk";
+        }
+        try {
+            Optional<Desk> optionalDesk = deskRepository.findById(appUserForm.getId());
+            if (optionalDesk.isPresent()){
+                Desk desk = optionalDesk.get();
+                DeskService.deleteDesk(desk, deskRepository);
+            } else {
+                System.out.println("error desk pas trouvé");
+                model.addAttribute("errorMessage", "Error: desk pas trouvé");
+                return "redirect:desk/listDesk";
+            }
+
+        }
+        // Other error!!
+        catch (Exception e) {
+            System.out.println("error get desk");
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "desk/listDesk";
+        }
+        return "redirect:/desk/listDesk";
+    }
+
 }
