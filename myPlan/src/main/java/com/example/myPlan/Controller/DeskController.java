@@ -58,6 +58,8 @@ public class DeskController {
         if (optionalDesk.isPresent()){
             Desk desk = optionalDesk.get();
 
+            List<Device> devices = deviceRepository.findAll();
+            model.addAttribute("DevicesObject", devices);
             model.addAttribute("title", "Ajouter un bureau");
             model.addAttribute("appUserForm", desk);
 
