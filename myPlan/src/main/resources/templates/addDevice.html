@@ -31,15 +31,15 @@
     <table>
         <tr>
             <td>Nombre</td>
-            <td><input type="number" th:field="*{number}" /> </td>
+            <td><input type="tel" th:field="*{number}" required/> </td>
         </tr>
         <tr>
             <td>Titre</td>
-            <td><input type="text" th:field="*{title}" /> </td>
+            <td><input type="text" th:field="*{title}" required/> </td>
         </tr>
         <tr>
             <td>Type</td>
-            <td><input type="text" th:field="*{type}" /> </td>
+            <td><input type="text" th:field="*{type}" required/> </td>
         </tr>
         <tr>
             <td><input type="hidden" th:field="*{id}" /> </td>
