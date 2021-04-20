@@ -30,9 +30,6 @@ public class Desk {
     }
 
 	@OneToOne
-    @JoinTable(name = "T_Desk_Collaborator",
-        joinColumns = @JoinColumn(name = "id"),
-        inverseJoinColumns = @JoinColumn(name = "id"))
     Collaborator collaborator = new Collaborator();
 
 

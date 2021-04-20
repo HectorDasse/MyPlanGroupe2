@@ -14,8 +14,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Optional;
+import java.util.List;
 
 
 @Controller
@@ -24,8 +24,6 @@ public class DeskController {
 
     @Autowired
     private DeskRepository deskRepository;
-
-    @Autowired
     private DeviceRepository deviceRepository;
 
 
@@ -41,9 +39,7 @@ public class DeskController {
     public String addDesk(Model model) {
 
         Desk form = new Desk();
-        List<Device> devices = deviceRepository.findAll();
-        model.addAttribute("DevicesObject", devices);
-        model.addAttribute("title", "Ajouter un bureau");
+        model.addAttribute("title", "Ajouter un bureaux");
         model.addAttribute("appUserForm", form);
 
         return "addDesk";
@@ -56,29 +52,13 @@ public class DeskController {
         Optional<Desk> optionalDesk = deskRepository.findById(id);
         if (optionalDesk.isPresent()){
             Desk desk = optionalDesk.get();
-
+            
             List<Device> devices = deviceRepository.findAll();
             model.addAttribute("DevicesObject", devices);
             model.addAttribute("title", "Ajouter un bureau");
             model.addAttribute("appUserForm", desk);
 
             return "addDesk";
-        } else {
-            return "Error";
-        }
-    }
-
-
-    // Show Register page.
-    @RequestMapping(value = "/deleteDesk", method = RequestMethod.GET)
-    public String deleteDesk(@RequestParam int id) {
-
-        Optional<Desk> optionalDesk = deskRepository.findById(id);
-        if (optionalDesk.isPresent()){
-            Desk desk = optionalDesk.get();
-            deskRepository.delete(desk);
-
-            return "delete";
         } else {
             return "Error";
         }
@@ -100,7 +80,8 @@ public class DeskController {
                 DeskService.saveDesk(appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), deskRepository);
             } else {
                 //update
-
+                DeskService.updateDesk(appUserForm, appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), deskRepository);
+            }
         }
         // Other error!!
         catch (Exception e) {
@@ -110,8 +91,5 @@ public class DeskController {
         }
         return "redirect:/toto";
     }
-
-
-
 
 }
