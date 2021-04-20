@@ -119,7 +119,12 @@ public class DeskController {
         return "redirect:/toto";
     }
 
-
+    @RequestMapping(value = "/listDesk", method = RequestMethod.GET)
+    public String listDesk(Model model) {
+        List<Desk> desks = deskRepository.findAll();
+        model.addAttribute("deskList", desks);
+        return "listDesk";
+    }
 
 
 }

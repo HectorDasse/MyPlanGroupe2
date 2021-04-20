@@ -20,6 +20,9 @@ public class Desk {
     public Collaborator collaborator;
 
 
+    public String comment;
+
+
 
     public Desk(int numero, String comment, List<Device> device, Collaborator collaborator) {
         this.numero = numero;
@@ -48,7 +51,6 @@ public class Desk {
         this.comment = comment;
     }
 
-    public String comment;
 
     public int getNumero() {
         return numero;
