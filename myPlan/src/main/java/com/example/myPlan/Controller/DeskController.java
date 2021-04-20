@@ -86,8 +86,8 @@ public class DeskController {
                 Desk desk = optionalDesk.get();
                 return "redirect:updateDesk?id=" + desk.getId();
             } else {
-                System.out.println("error");
-                model.addAttribute("errorMessage", "Error: ");
+                System.out.println("error desk pas trouvé\"");
+                model.addAttribute("errorMessage", "Error: desk pas trouvé\"");
                 return "redirect:desk/listDesk";
             }
 
@@ -129,7 +129,7 @@ public class DeskController {
         }
         // Other error!!
         catch (Exception e) {
-            System.out.println("error");
+            System.out.println("error " + e.getMessage());
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "addDesk";
         }
@@ -153,8 +153,8 @@ public class DeskController {
 
         // Validate result
         if (result.hasErrors()) {
-            System.out.println("error");
-            model.addAttribute("errorMessage", "Error: ");
+            System.out.println("error Error: formulaire");
+            model.addAttribute("errorMessage", "Error: formulaire");
             return "desk/listDesk";
         }
         try {
@@ -163,8 +163,8 @@ public class DeskController {
                 Desk desk = optionalDesk.get();
                 DeskService.deleteDesk(desk, deskRepository);
             } else {
-                System.out.println("error");
-                model.addAttribute("errorMessage", "Error: ");
+                System.out.println("error desk pas trouvé");
+                model.addAttribute("errorMessage", "Error: desk pas trouvé");
                 return "redirect:desk/listDesk";
             }
 
