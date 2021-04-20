@@ -96,11 +96,12 @@ public class DeskController {
         }
         try {
 
-            if (appUserForm.getId() == null){
+            if (appUserForm.getId() == null) {
                 DeskService.saveDesk(appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), deskRepository);
             } else {
                 //update
 
+            }
         }
         // Other error!!
         catch (Exception e) {

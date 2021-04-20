@@ -43,7 +43,7 @@
         <tr>
             <td>Device</td>
             <td>
-                <select th:field="*{devices}">
+                <select multiple th:field="*{devices}">
                     <option value=""> -- </option>
                     <option th:each="device : ${DevicesObject}"
                             th:value="${device.id}"

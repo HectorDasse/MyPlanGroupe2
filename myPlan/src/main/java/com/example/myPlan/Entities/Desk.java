@@ -1,6 +1,7 @@
 package com.example.myPlan.Entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -12,32 +13,30 @@ public class Desk {
 
     public int numero;
 
+    @OneToMany
+    public List<Device> devices;
+
     @OneToOne
-    public Device devices;
+    public Collaborator collaborator;
 
-    public Device getDevices() {
-        return devices;
-    }
 
-    public void setDevices(Device devices) {
-        this.devices = devices;
-    }
 
-    public Desk(int numero, String comment, Device device) {
+    public Desk(int numero, String comment, List<Device> device) {
         this.numero = numero;
         this.comment = comment;
         this.devices = device;
     }
 
-	@OneToOne
-    @JoinTable(name = "T_Desk_Collaborator",
-        joinColumns = @JoinColumn(name = "id"),
-        inverseJoinColumns = @JoinColumn(name = "id"))
-    Collaborator collaborator = new Collaborator();
-
-
     public Desk() {
 
+    }
+
+    public List<Device> getDevices() {
+        return devices;
+    }
+
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
     }
 
     public String getComment() {
@@ -66,15 +65,6 @@ public class Desk {
         return id;
     }
 
-    @Override
-    public String toString() {
-        return "Desk{" +
-                "id=" + id +
-                ", numero=" + numero +
-                ", comment='" + comment + '\'' +
-                '}';
-    }
-
 	public Collaborator getCollaborator() {
 		return collaborator;
 	}
@@ -83,4 +73,12 @@ public class Desk {
 		this.collaborator = collaborator;
 	}
 
+    @Override
+    public String toString() {
+        return "Desk{" +
+                "id=" + id +
+                ", numero=" + numero +
+                ", comment='" + comment + '\'' +
+                '}';
+    }
 }

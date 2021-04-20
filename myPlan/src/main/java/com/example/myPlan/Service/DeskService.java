@@ -4,12 +4,13 @@ import com.example.myPlan.Entities.Desk;
 import com.example.myPlan.Entities.Device;
 import com.example.myPlan.Repository.DeskRepository;
 
+import java.util.List;
 import java.util.Optional;
 
 public class DeskService {
 
 
-    public static boolean saveDesk(int numero, String comment, Device device, DeskRepository deskRepository){
+    public static boolean saveDesk(int numero, String comment, List<Device> device, DeskRepository deskRepository){
         try {
             Desk desk = new Desk(numero, comment, device);
             deskRepository.save(desk);
@@ -21,7 +22,7 @@ public class DeskService {
         }
     };
 
-    public static boolean updateDesk(Desk desk, int numero, String comment, Device device, DeskRepository deskRepository){
+    public static boolean updateDesk(Desk desk, int numero, String comment, List<Device> device, DeskRepository deskRepository){
 
         try {
             Optional<Desk> deskToUpdate = deskRepository.findById(desk.getId());
