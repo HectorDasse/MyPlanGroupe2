@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" th:href="@{/css/main.css}">
+
+<title>My plan --- menu</title>
+</head>
+<body>
+<table>
+	<tr>
+		<td>
+			<input type="button" value="Ajouter un collaborateur" onclick="document.location.href='collaborator/addCollaborator';"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="button" value="Ajouter un bureau" onclick="document.location.href='desk/addDesk';"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<input type="button" value="Ajouter un matériel" onclick="document.location.href='device/addDevice';"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div>Modifier un collaborateur</div>
+			<input type="button" value="Modifier un collaborateur" onclick="document.location.href='collaborator/updateCollaborator?id=' + document.getElementById('collabNumber').value;"/>
+			<input id="collabNumber" type="number" max="100"/>
+			
+			<select th:field="*{collaborator}">
+			    <option value=""> -- </option>
+			    <option th:each="itemCollaborator : ${collaboratorObject}"
+			            th:value="${itemCollaborator.id}"
+			            th:utext="${itemCollaborator.firstName}" />
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div>Modifier un bureau</div>
+			<input type="button" value="Modifier un bureau" onclick="document.location.href='collaborator/updateDesk?id=' + document.getElementById('deskNumber').value;"/>
+			<input id="deskNumber" type="number" max="100"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<div>Modifier un matériel</div>
+			<input type="button" value="Modifier un matériel" onclick="document.location.href='collaborator/updateDevice?id=' + document.getElementById('deviceNumber').value;"/>
+			<input id="deviceNumber" type="number" max="100"/>
+		</td>
+	</tr>
+</table>
+</body>
+</html>
