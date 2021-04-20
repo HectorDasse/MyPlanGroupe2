@@ -10,7 +10,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.example.myPlan.Entities.Collaborator;
+import com.example.myPlan.Entities.Desk;
+import com.example.myPlan.Entities.Device;
 import com.example.myPlan.Repository.CollaboratorRepository;
+import com.example.myPlan.Repository.DeskRepository;
+import com.example.myPlan.Repository.DeviceRepository;
 
 
 @Controller // This means that this class is a Controller
@@ -19,11 +23,19 @@ public class MainController {
 
 	@Autowired
 	private CollaboratorRepository collaboratorRepository;
+	@Autowired
+	private DeskRepository deskRepository;
+	@Autowired
+	private DeviceRepository deviceRepository;
 
 	@GetMapping(path="/")
     public String index(Model model) {
         List<Collaborator> collaborator = (List<Collaborator>) collaboratorRepository.findAll();
-        model.addAttribute("appUserForm", collaborator);
+        List<Desk> desk = (List<Desk>) deskRepository.findAll();
+        List<Device> device = (List<Device>) deviceRepository.findAll();
+        model.addAttribute("collaborator", collaborator);
+        model.addAttribute("desk", desk);
+        model.addAttribute("device", device);
         return "index";
     }
     
