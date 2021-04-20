@@ -13,5 +13,5 @@ public class MainController {
         // This returns a JSON or XML with the users
         return "toto";
     }
-
+    
 }

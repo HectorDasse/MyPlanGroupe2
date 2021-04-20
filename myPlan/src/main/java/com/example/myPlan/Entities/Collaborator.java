@@ -13,9 +13,9 @@ import javax.persistence.GenerationType;
 public class Collaborator {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer id;
+    public Integer id;
 
-    private String firstName;
+    public String firstName;
 
 	private String lastName;
 
