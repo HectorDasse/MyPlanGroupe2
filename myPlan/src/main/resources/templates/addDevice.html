@@ -30,12 +30,12 @@
 <form th:action="@{/device/register}" th:object="${appUserForm}" method="POST">
     <table>
         <tr>
-            <td>Nombre</td>
+            <td>Number</td>
             <td><input type="tel" th:field="*{number}" required/> </td>
         </tr>
         <tr>
-            <td>Titre</td>
-            <td><input type="text" th:field="*{title}" required/> </td>
+            <td>Name</td>
+            <td><input type="text" th:field="*{name}" required/> </td>
         </tr>
         <tr>
             <td>Type</td>
