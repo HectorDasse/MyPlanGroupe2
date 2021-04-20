@@ -33,5 +33,10 @@ public class MainController {
         // This returns a JSON or XML with the users
         return "toto";
     }
-    
+
+    @RequestMapping(value = "/menu", method = RequestMethod.GET)
+    public String menu() {
+        // This returns a JSON or XML with the users
+        return "menu";
+    }
 }
