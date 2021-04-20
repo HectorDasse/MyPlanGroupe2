@@ -1,8 +1,10 @@
 package com.example.myPlan.Controller;
 
 
+import com.example.myPlan.Entities.Collaborator;
 import com.example.myPlan.Entities.Desk;
 import com.example.myPlan.Entities.Device;
+import com.example.myPlan.Repository.CollaboratorRepository;
 import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Repository.DeviceRepository;
 import com.example.myPlan.Service.DeskService;
@@ -28,6 +30,9 @@ public class DeskController {
     @Autowired
     private DeviceRepository deviceRepository;
 
+    @Autowired
+    private CollaboratorRepository collaboratorRepository;
+
 
     @GetMapping(path="/toto")
     public @ResponseBody
@@ -41,10 +46,8 @@ public class DeskController {
     public String addDesk(Model model) {
 
         Desk form = new Desk();
-        List<Device> devices = deviceRepository.findAll();
-        model.addAttribute("DevicesObject", devices);
-        model.addAttribute("title", "Ajouter un bureau");
-        model.addAttribute("appUserForm", form);
+        model = DeskService.setModelFormulaire(model, form, deviceRepository, collaboratorRepository);
+
 
         return "addDesk";
     }
@@ -57,10 +60,7 @@ public class DeskController {
         if (optionalDesk.isPresent()){
             Desk desk = optionalDesk.get();
 
-            List<Device> devices = deviceRepository.findAll();
-            model.addAttribute("DevicesObject", devices);
-            model.addAttribute("title", "Ajouter un bureau");
-            model.addAttribute("appUserForm", desk);
+            model = DeskService.setModelFormulaire(model, desk, deviceRepository, collaboratorRepository);
 
             return "addDesk";
         } else {
@@ -97,10 +97,10 @@ public class DeskController {
         try {
 
             if (appUserForm.getId() == null) {
-                DeskService.saveDesk(appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), deskRepository);
+                DeskService.addDesk(appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), appUserForm.getCollaborator(), deskRepository);
             } else {
                 //update
-
+                //DeskService.updateDesk()Desk(appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), appUserForm.getCollaborator(), deskRepository);
             }
         }
         // Other error!!

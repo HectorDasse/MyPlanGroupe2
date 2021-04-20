@@ -52,6 +52,17 @@
         </tr>
 
         <tr>
+            <td>Colaborateur</td>
+            <td>
+                <select th:field="*{collaborator}">
+                    <option value=""> -- </option>
+                    <option th:each="itemCollaborator : ${collaboratorObject}"
+                            th:value="${itemCollaborator.id}"
+                            th:utext="${itemCollaborator.firstName}"/>
+                </select>
+        </tr>
+
+        <tr>
             <td>&nbsp;</td>
             <td>
                 <input type="submit" value="Submit" />

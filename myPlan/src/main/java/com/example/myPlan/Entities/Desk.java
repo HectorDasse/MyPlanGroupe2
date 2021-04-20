@@ -21,10 +21,11 @@ public class Desk {
 
 
 
-    public Desk(int numero, String comment, List<Device> device) {
+    public Desk(int numero, String comment, List<Device> device, Collaborator collaborator) {
         this.numero = numero;
         this.comment = comment;
         this.devices = device;
+        this.collaborator = collaborator;
     }
 
     public Desk() {
