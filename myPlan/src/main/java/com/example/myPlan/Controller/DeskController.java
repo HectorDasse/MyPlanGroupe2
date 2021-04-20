@@ -75,6 +75,39 @@ public class DeskController {
         }
     }
 
+    @RequestMapping(value = "/redirectUpdate", method = RequestMethod.POST)
+    public String redirectUpdate(Model model, //
+                         @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
+                         BindingResult result, //
+                         final RedirectAttributes redirectAttributes) {
+
+        // Validate result
+        if (result.hasErrors()) {
+            System.out.println("error");
+            model.addAttribute("errorMessage", "Error: ");
+            return "desk/listDesk";
+        }
+        try {
+            Optional<Desk> optionalDesk = deskRepository.findById(appUserForm.getId());
+            if (optionalDesk.isPresent()){
+                Desk desk = optionalDesk.get();
+                return "redirect:updateDesk?id=" + desk.getId();
+            } else {
+                System.out.println("error");
+                model.addAttribute("errorMessage", "Error: ");
+                return "redirect:desk/listDesk";
+            }
+
+        }
+        // Other error!!
+        catch (Exception e) {
+            System.out.println("error get desk");
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "desk/listDesk";
+        }
+    }
+
+
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String saveRegister(Model model, //
                                @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
