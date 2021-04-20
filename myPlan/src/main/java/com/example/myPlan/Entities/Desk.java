@@ -29,8 +29,8 @@ public class Desk {
         this.devices = device;
     }
 
-	@OneToOne
-    Collaborator collaborator = new Collaborator();
+//	@OneToOne
+//    Collaborator collaborator = new Collaborator();
 
 
     public Desk() {
@@ -72,12 +72,12 @@ public class Desk {
                 '}';
     }
 
-	public Collaborator getCollaborator() {
-		return collaborator;
-	}
-
-	public void setCollaborator(Collaborator collaborator) {
-		this.collaborator = collaborator;
-	}
+//	public Collaborator getCollaborator() {
+//		return collaborator;
+//	}
+//
+//	public void setCollaborator(Collaborator collaborator) {
+//		this.collaborator = collaborator;
+//	}
 
 }
