@@ -1,11 +1,6 @@
 package com.example.myPlan.Entities;
 
 import javax.persistence.*;
-<<<<<<< HEAD
-=======
-import java.util.ArrayList;
->>>>>>> d9ccef14aebfe02269bcac875e0cca9a292fc7d4
-import java.util.List;
 
 
 @Entity
