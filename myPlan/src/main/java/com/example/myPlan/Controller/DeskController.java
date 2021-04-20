@@ -46,10 +46,7 @@ public class DeskController {
     public String addDesk(Model model) {
 
         Desk form = new Desk();
-        model = DeskService.setModelFormulaire(model, form, deviceRepository, collaboratorRepository);
-
-        model.addAttribute("title", "Ajouter un bureaux");
-        model.addAttribute("appUserForm", form);
+        model = DeskService.setModelFormulaire(model, form, "Ajouter un bureau", deviceRepository, collaboratorRepository);
 
         return "addDesk";
     }
@@ -62,12 +59,8 @@ public class DeskController {
         if (optionalDesk.isPresent()){
             Desk desk = optionalDesk.get();
 
-            model = DeskService.setModelFormulaire(model, desk, deviceRepository, collaboratorRepository);
-            
-            List<Device> devices = deviceRepository.findAll();
-            model.addAttribute("DevicesObject", devices);
-            model.addAttribute("title", "Ajouter un bureau");
-            model.addAttribute("appUserForm", desk);
+            model = DeskService.setModelFormulaire(model, desk, "Modifier un bureau", deviceRepository, collaboratorRepository);
+
 
             return "addDesk";
         } else {
