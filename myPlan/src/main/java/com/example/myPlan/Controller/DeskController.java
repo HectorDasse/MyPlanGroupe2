@@ -133,7 +133,7 @@ public class DeskController {
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "addDesk";
         }
-        return "redirect:/toto";
+        return "redirect:/desk/listDesk";
     }
 
     @RequestMapping(value = "/listDesk", method = RequestMethod.GET)
