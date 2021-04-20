@@ -26,12 +26,12 @@
 	</tr>
 	<tr>
 		<td>
-			<form th:object="${appUserForm}" method="POST">
+			<form th:object="${collaborator}" method="POST">
 				<div>Modifier un collaborateur</div>
 				<input type="button" value="Modifier un collaborateur" onclick="document.location.href='collaborator/updateCollaborator?id=' + document.getElementById('collabNumber').value;"/>
 				<input id="collabNumber" type="number" max="100"/>
 				
-				<select th:field="*{collaborator}">
+				<select>
 				    <option value=""> -- </option>
 				    <option th:each="itemCollaborator : ${collaboratorObject}"
 				            th:value="${itemCollaborator.id}"

@@ -23,8 +23,7 @@ public class MainController {
 	@GetMapping(path="/")
     public String index(Model model) {
         List<Collaborator> collaborator = (List<Collaborator>) collaboratorRepository.findAll();
-        model.addAttribute("appUserForm", new Collaborator());
-        model.addAttribute("collaboratorObject", collaborator);
+        model.addAttribute("appUserForm", collaborator);
         return "index";
     }
     
