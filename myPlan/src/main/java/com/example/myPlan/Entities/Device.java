@@ -9,8 +9,8 @@ import javax.persistence.Id;
 public class Device {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    public Integer id;
-    public String name;
+    private Integer id;
+    private String name;
     private String type; //interne/externe
     private String number;
 

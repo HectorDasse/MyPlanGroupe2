@@ -4,9 +4,7 @@ import java.util.Date;
 import java.util.Optional;
 
 import com.example.myPlan.Entities.Collaborator;
-import com.example.myPlan.Entities.Desk;
 import com.example.myPlan.Repository.CollaboratorRepository;
-import com.example.myPlan.Repository.DeskRepository;
 
 public class CollaboratorService {
 	public static boolean saveCollaborator(String firstName, String lastName, Date enrollmentTime, Date departureTime, CollaboratorRepository collaboratorRepository) {

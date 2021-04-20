@@ -39,7 +39,11 @@
         </tr>
         <tr>
             <td>Type</td>
-            <td><input type="text" th:field="*{type}" required/> </td>
+            <td>
+            <input type="radio" th:field="*{type}" id="Internal" name="type" value="Internal" checked>
+				<label for="Internal">Internal</label>
+            <input type="radio" th:field="*{type}" id="External" name="type" value="External" checked>
+				<label for="External">External</label>
         </tr>
         <tr>
             <td><input type="hidden" th:field="*{id}" /> </td>

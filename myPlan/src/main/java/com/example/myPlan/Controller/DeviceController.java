@@ -1,13 +1,5 @@
 package com.example.myPlan.Controller;
 
-import com.example.myPlan.Entities.Desk;
-import com.example.myPlan.Entities.Device;
-import com.example.myPlan.Entities.Device;
-import com.example.myPlan.Repository.DeskRepository;
-import com.example.myPlan.Repository.DeviceRepository;
-import com.example.myPlan.Service.CollaboratorService;
-import com.example.myPlan.Service.DeskService;
-import com.example.myPlan.Service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +7,11 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import com.example.myPlan.Entities.Device;
+import com.example.myPlan.Repository.DeskRepository;
+import com.example.myPlan.Repository.DeviceRepository;
+import com.example.myPlan.Service.DeviceService;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,7 +21,6 @@ import java.util.Optional;
 public class DeviceController {
 
     @Autowired
-    private DeskRepository deskRepository;
     private DeviceRepository deviceRepository;
 
 
@@ -78,16 +74,19 @@ public class DeviceController {
         try {
 
             if (appUserForm.getId() == null) {
+            	if (deviceRepository == null)
+            		return "redirect:/device/addDevice";
                 DeviceService.saveDevice(appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), deviceRepository);
             } else {
                 //update
                 DeviceService.updateDevice(appUserForm, appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), deviceRepository);
             }
             Integer id = DeviceService.getDeviceByName(appUserForm.getName(), deviceRepository).getId();
-            return "redirect:/collaborator/updateCollaborator?id=" + id;
+            return "redirect:/device/updateDevice?id=" + id;
         }
         // Other error!!
         catch (Exception e) {
+        	System.out.println("################# " + appUserForm.getName() + "," + appUserForm.getType() + "," + appUserForm.getNumber());
             System.out.println("error");
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "addDevice";

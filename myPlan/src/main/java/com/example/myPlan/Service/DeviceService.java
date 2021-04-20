@@ -1,9 +1,6 @@
 package com.example.myPlan.Service;
 
-import com.example.myPlan.Entities.Collaborator;
-import com.example.myPlan.Entities.Desk;
 import com.example.myPlan.Entities.Device;
-import com.example.myPlan.Repository.CollaboratorRepository;
 import com.example.myPlan.Repository.DeviceRepository;
 
 import java.util.Optional;
