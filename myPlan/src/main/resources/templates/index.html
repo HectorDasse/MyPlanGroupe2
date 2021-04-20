@@ -26,32 +26,44 @@
 	</tr>
 	<tr>
 		<td>
-			<form th:object="${appUserForm}" method="POST">
-				<div>Modifier un collaborateur</div>
-				<input type="button" value="Modifier un collaborateur" onclick="document.location.href='collaborator/updateCollaborator?id=' + document.getElementById('collabNumber').value;"/>
-				<input id="collabNumber" type="number" max="100"/>
-				
-				<select th:field="*{collaborator}">
-				    <option value=""> -- </option>
-				    <option th:each="itemCollaborator : ${collaboratorObject}"
-				            th:value="${itemCollaborator.id}"
-				            th:utext="${itemCollaborator.firstName}" />
-				</select>
-			</form>
+			<div>Modifier un collaborateur</div>
+			<input type="button" value="Modifier un collaborateur" onclick="document.location.href='collaborator/updateCollaborator?id=' + document.getElementById('collabNumber').value;"/>
+			
+			<select>
+			    <option value=""> -- </option>
+			    <option id="collabNumber"
+			    		th:each="itemCollaborator : ${collaborator}"
+			            th:value="${itemCollaborator.id}"
+			            th:utext="${itemCollaborator.firstName}" />
+			</select>
 		</td>
 	</tr>
 	<tr>
 		<td>
 			<div>Modifier un bureau</div>
-			<input type="button" value="Modifier un bureau" onclick="document.location.href='collaborator/updateDesk?id=' + document.getElementById('deskNumber').value;"/>
-			<input id="deskNumber" type="number" max="100"/>
+			<input type="button" value="Modifier un bureau" onclick="document.location.href='desk/updateDesk?id=' + document.getElementById('deskNumber').value;"/>
+			
+			<select>
+			    <option value=""> -- </option>
+			    <option id="deskNumber"
+			    		th:each="itemDesk : ${desk}"
+			            th:value="${itemDesk.id}"
+			            th:utext="${itemDesk.numero}" />
+			</select>
 		</td>
 	</tr>
 	<tr>
 		<td>
 			<div>Modifier un matériel</div>
-			<input type="button" value="Modifier un matériel" onclick="document.location.href='collaborator/updateDevice?id=' + document.getElementById('deviceNumber').value;"/>
-			<input id="deviceNumber" type="number" max="100"/>
+			<input type="button" value="Modifier un matériel" onclick="document.location.href='device/updateDevice?id=' + document.getElementById('deviceNumber').value;"/>
+			
+			<select>
+			    <option value=""> -- </option>
+			    <option id="deviceNumber"
+			    		th:each="itemDevice : ${device}"
+			            th:value="${itemDevice.id}"
+			            th:utext="${itemDevice.number}" />
+			</select>
 		</td>
 	</tr>
 </table>
