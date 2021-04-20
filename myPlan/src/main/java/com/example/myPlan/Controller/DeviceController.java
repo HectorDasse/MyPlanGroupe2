@@ -5,6 +5,7 @@ import com.example.myPlan.Entities.Device;
 import com.example.myPlan.Entities.Device;
 import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Repository.DeviceRepository;
+import com.example.myPlan.Service.CollaboratorService;
 import com.example.myPlan.Service.DeskService;
 import com.example.myPlan.Service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,6 +83,8 @@ public class DeviceController {
                 //update
                 DeviceService.updateDevice(appUserForm, appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), deviceRepository);
             }
+            Integer id = DeviceService.getDeviceByName(appUserForm.getName(), deviceRepository).getId();
+            return "redirect:/collaborator/updateCollaborator?id=" + id;
         }
         // Other error!!
         catch (Exception e) {
@@ -89,6 +92,5 @@ public class DeviceController {
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "addDevice";
         }
-        return "redirect:/toto";
     }
 }
