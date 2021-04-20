@@ -1,6 +1,7 @@
 package com.example.myPlan.Entities;
 
 import javax.persistence.*;
+import java.util.List;
 
 
 @Entity
@@ -12,29 +13,36 @@ public class Desk {
 
     public int numero;
 
+    @OneToMany
+    public List<Device> devices;
+
     @OneToOne
-    public Device devices;
+    public Collaborator collaborator;
 
-    public Device getDevices() {
-        return devices;
-    }
 
-    public void setDevices(Device devices) {
-        this.devices = devices;
-    }
+    public String comment;
 
-    public Desk(int numero, String comment, Device device) {
+
+
+    public Desk(int numero, String comment, List<Device> device, Collaborator collaborator) {
         this.numero = numero;
         this.comment = comment;
         this.devices = device;
+        this.collaborator = collaborator;
     }
 
+    public Desk() {
 //	@OneToOne
 //    Collaborator collaborator = new Collaborator();
 
+    }
 
-    public Desk() {
+    public List<Device> getDevices() {
+        return devices;
+    }
 
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
     }
 
     public String getComment() {
@@ -45,7 +53,6 @@ public class Desk {
         this.comment = comment;
     }
 
-    public String comment;
 
     public int getNumero() {
         return numero;
@@ -63,6 +70,14 @@ public class Desk {
         return id;
     }
 
+	public Collaborator getCollaborator() {
+		return collaborator;
+	}
+
+	public void setCollaborator(Collaborator collaborator) {
+		this.collaborator = collaborator;
+	}
+
     @Override
     public String toString() {
         return "Desk{" +
@@ -71,13 +86,4 @@ public class Desk {
                 ", comment='" + comment + '\'' +
                 '}';
     }
-
-//	public Collaborator getCollaborator() {
-//		return collaborator;
-//	}
-//
-//	public void setCollaborator(Collaborator collaborator) {
-//		this.collaborator = collaborator;
-//	}
-
 }
