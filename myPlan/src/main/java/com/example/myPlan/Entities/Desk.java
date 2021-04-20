@@ -1,11 +1,6 @@
 package com.example.myPlan.Entities;
 
 import javax.persistence.*;
-<<<<<<< HEAD
-=======
-import java.util.ArrayList;
->>>>>>> d9ccef14aebfe02269bcac875e0cca9a292fc7d4
-import java.util.List;
 
 
 @Entity
@@ -35,9 +30,7 @@ public class Desk {
     }
 
 	@OneToOne
-    @JoinTable(name = "T_Desk_Collaborator",
-        joinColumns = @JoinColumn(name = "id"),
-        inverseJoinColumns = @JoinColumn(name = "id"))
+    @JoinTable(name = "T_Desk_Collaborator")
     Collaborator collaborator = new Collaborator();
 
 
