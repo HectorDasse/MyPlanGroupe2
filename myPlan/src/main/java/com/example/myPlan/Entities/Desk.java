@@ -1,7 +1,10 @@
 package com.example.myPlan.Entities;
 
 import javax.persistence.*;
+<<<<<<< HEAD
+=======
 import java.util.ArrayList;
+>>>>>>> d9ccef14aebfe02269bcac875e0cca9a292fc7d4
 import java.util.List;
 
 
@@ -14,9 +17,21 @@ public class Desk {
 
     public int numero;
 
-    public Desk(int numero, String comment) {
+    @OneToOne
+    public Device devices;
+
+    public Device getDevices() {
+        return devices;
+    }
+
+    public void setDevices(Device devices) {
+        this.devices = devices;
+    }
+
+    public Desk(int numero, String comment, Device device) {
         this.numero = numero;
         this.comment = comment;
+        this.devices = device;
     }
 
 	@OneToOne
