@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.util.List;
 import java.util.Optional;
@@ -100,7 +101,13 @@ public class DeskController {
                 DeskService.addDesk(appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), appUserForm.getCollaborator(), deskRepository);
             } else {
                 //update
-                //DeskService.updateDesk()Desk(appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), appUserForm.getCollaborator(), deskRepository);
+
+                if (DeskService.updateDesk(appUserForm.getId(), appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), appUserForm.getCollaborator(), deskRepository)){
+                    return "redirect:/toto";
+                } else {
+                    model.addAttribute("errorMessage", "Error: " + "Item not found");
+                    return "addDesk";
+                }
             }
         }
         // Other error!!

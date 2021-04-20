@@ -26,10 +26,10 @@ public class DeskService {
         }
     };
 
-    public static boolean updateDesk(Desk desk, int numero, String comment, List<Device> device, Collaborator collaborator, DeskRepository deskRepository){
+    public static boolean updateDesk(int id, int numero, String comment, List<Device> device, Collaborator collaborator, DeskRepository deskRepository){
 
         try {
-            Optional<Desk> deskToUpdate = deskRepository.findById(desk.getId());
+            Optional<Desk> deskToUpdate = deskRepository.findById(id);
             if (deskToUpdate.isPresent()) {
                 Desk deskUpdated = deskToUpdate.get();
                 deskUpdated.setNumero(numero);
