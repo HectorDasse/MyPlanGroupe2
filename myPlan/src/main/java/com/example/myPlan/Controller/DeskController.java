@@ -15,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import sun.security.krb5.internal.crypto.Des;
 
 import java.util.Optional;
 import java.util.List;
@@ -27,6 +26,8 @@ public class DeskController {
 
     @Autowired
     private DeskRepository deskRepository;
+
+    @Autowired
     private DeviceRepository deviceRepository;
 
     @Autowired
@@ -113,6 +114,42 @@ public class DeskController {
     public String listDesk(Model model) {
         List<Desk> desks = deskRepository.findAll();
         model.addAttribute("deskList", desks);
+        Desk desk = new Desk();
+        model.addAttribute("appUserForm", desk);
         return "listDesk";
     }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(Model model, //
+                               @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
+                               BindingResult result, //
+                               final RedirectAttributes redirectAttributes) {
+
+        // Validate result
+        if (result.hasErrors()) {
+            System.out.println("error");
+            model.addAttribute("errorMessage", "Error: ");
+            return "desk/listDesk";
+        }
+        try {
+            Optional<Desk> optionalDesk = deskRepository.findById(appUserForm.getId());
+            if (optionalDesk.isPresent()){
+                Desk desk = optionalDesk.get();
+                DeskService.deleteDesk(desk, deskRepository);
+            } else {
+                System.out.println("error");
+                model.addAttribute("errorMessage", "Error: ");
+                return "redirect:desk/listDesk";
+            }
+
+        }
+        // Other error!!
+        catch (Exception e) {
+            System.out.println("error get desk");
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "desk/listDesk";
+        }
+        return "redirect:/desk/listDesk";
+    }
+
 }

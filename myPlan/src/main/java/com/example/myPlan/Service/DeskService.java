@@ -48,9 +48,11 @@ public class DeskService {
 
     public static boolean deleteDesk(Desk desk, DeskRepository deskRepository){
         try {
+            System.out.println("delete");
             deskRepository.delete(desk);
 
         } catch (Exception e) {
+            System.out.println("error " + e.getMessage());
             return false;
         }
         return true;

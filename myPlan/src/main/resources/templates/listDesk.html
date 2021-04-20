@@ -13,17 +13,24 @@
         }
     </style>
 </head>
+<script>
 
+    function onclick(test){
+        alert(test)
+    }
+
+</script>
 
 <body>
-
+<div th:if="${errorMessage != null}"
+     th:utext="${errorMessage}" class="error">...</div>
 
 <table>
     <tr>
         <td>Numero</td>
         <td>Comment</td>
         <td>Collaborateur</td>
-        <td>Id</td>
+        <td>Delete</td>
 
     </tr>
     <tr th:each="desk : ${deskList}">
@@ -33,7 +40,12 @@
             <span th:case="null" th:text="Null" />
             <span th:case="*" th:text="${desk.collaborator.firstName}" />
         </td>
-        <td th:text="${desk.id}"></td>
+        <td>
+            <form th:action="@{/desk/delete}" th:object="${appUserForm}" method="POST">
+                <input type="hidden" name="id" th:value="${desk.id}">
+                <button type="submit">Delete</button>
+            </form>
+        </td>
         <!-- <td><a data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-edit"></span></a></td> -->
     </tr>
 </table>
