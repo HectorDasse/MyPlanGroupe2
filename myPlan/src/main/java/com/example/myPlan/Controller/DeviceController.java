@@ -1,7 +1,9 @@
 package com.example.myPlan.Controller;
 
+import com.example.myPlan.Entities.Collaborator;
 import com.example.myPlan.Entities.Desk;
 import com.example.myPlan.Entities.Device;
+import com.example.myPlan.Repository.CollaboratorRepository;
 import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Repository.DeviceRepository;
 import com.example.myPlan.Service.CollaboratorService;
@@ -24,7 +26,10 @@ public class DeviceController {
 
     @Autowired
     private DeskRepository deskRepository;
+    @Autowired
     private DeviceRepository deviceRepository;
+    @Autowired
+    private CollaboratorRepository collaboratorRepository;
 
 
     @GetMapping(path = "/toto")
@@ -41,6 +46,10 @@ public class DeviceController {
         Device form = new Device();
         model.addAttribute("title", "Ajouter un device");
         model.addAttribute("appUserForm", form);
+        List<Desk> desks = (List<Desk>) deskRepository.findAll();
+        model.addAttribute("desks", desks);
+        List<Collaborator> collaborators = (List<Collaborator>) collaboratorRepository.findAll();
+        model.addAttribute("collaborators", collaborators);
 
         return "addDevice";
     }
