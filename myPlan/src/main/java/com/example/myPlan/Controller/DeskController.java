@@ -157,9 +157,9 @@ public class DeskController {
             model.addAttribute("deskList", desks);
             Desk desk = new Desk();
             model.addAttribute("appUserForm", desk);
-            return "listDeskCollaborator";
+            return "listDeskCollaborateur";
         }else {
-            return "redirect:/desk/listDeskCollaborator";
+            return "redirect:/desk/listDeskCollaborateur";
         }
     }
 
