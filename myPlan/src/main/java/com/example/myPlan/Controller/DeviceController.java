@@ -2,7 +2,6 @@ package com.example.myPlan.Controller;
 
 import com.example.myPlan.Entities.Desk;
 import com.example.myPlan.Entities.Device;
-import com.example.myPlan.Entities.Device;
 import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Repository.DeviceRepository;
 import com.example.myPlan.Service.CollaboratorService;
@@ -92,5 +91,47 @@ public class DeviceController {
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "addDevice";
         }
+    }
+
+    @RequestMapping(value = "/listDevice", method = RequestMethod.GET)
+    public String listDevice(Model model) {
+        List<Device> devices = deviceRepository.findAll();
+        model.addAttribute("deviceList", devices);
+        Device device = new Device();
+        model.addAttribute("appUserForm", device);
+        return "listDevice";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(Model model, //
+                         @ModelAttribute("appUserForm") @Validated Device appUserForm, //
+                         BindingResult result, //
+                         final RedirectAttributes redirectAttributes) {
+
+        // Validate result
+        if (result.hasErrors()) {
+            System.out.println("error Error: formulaire");
+            model.addAttribute("errorMessage", "Error: formulaire");
+            return "device/listDevice";
+        }
+        try {
+            Optional<Device> optionalDevice = deviceRepository.findById(appUserForm.getId());
+            if (optionalDevice.isPresent()){
+                Device device = optionalDevice.get();
+                DeviceService.deleteDevice(device, deviceRepository);
+            } else {
+                System.out.println("error device pas trouvé");
+                model.addAttribute("errorMessage", "Error: device pas trouvé");
+                return "redirect:device/listDevice";
+            }
+
+        }
+        // Other error!!
+        catch (Exception e) {
+            System.out.println("error get device");
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "device/listDevice";
+        }
+        return "redirect:/device/listDevice";
     }
 }
