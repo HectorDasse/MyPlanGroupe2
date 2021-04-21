@@ -47,6 +47,31 @@
             <td><input type="date" th:field="*{DepartureTime}" /> </td>
         </tr>
         <tr class="line">
+            <td>Device</td>
+            <td>
+				<select>
+				    <option value=""> -- </option>
+				    <option 
+				    		th:each="itemDevice : ${devices}"
+				            th:value="${itemDevice.id}"
+				            th:utext="${itemDevice.name}" />
+				</select>
+			</td>
+        </tr>
+
+        <tr class="line">
+            <td>Desk</td>
+            <td>
+				<select>
+				    <option value=""> -- </option>
+				    <option 
+				    		th:each="itemDesk : ${desks}"
+				            th:value="${itemDesk.id}"
+				            th:utext="${itemDesk.numero}" />
+				</select>
+			</td>
+        </tr>
+        <tr class="line">
             <td><input type="hidden" th:field="*{id}" /> </td>
         </tr>
 
