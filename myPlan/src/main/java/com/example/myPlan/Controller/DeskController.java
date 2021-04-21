@@ -8,6 +8,7 @@ import com.example.myPlan.Repository.CollaboratorRepository;
 import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Repository.DeviceRepository;
 import com.example.myPlan.Service.DeskService;
+import com.example.myPlan.Tools.TransfereDesk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -221,6 +222,45 @@ public class DeskController {
             model.addAttribute("errorMessage", "Error: problemen enregistrement");
             return "redirect:/desk/listDeskCollaborateur?id=" + idColab;
         }
+    }
+
+    @RequestMapping(value = "/listDeskFree", method = RequestMethod.POST)
+    public String listDeskFree(Model model, //
+                               @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
+                               BindingResult result, //
+                               final RedirectAttributes redirectAttributes) {
+
+        List<Desk> desks = deskRepository.findByCollaboratorIsNull();
+        model.addAttribute("deskList", desks);
+        TransfereDesk transfereDesk = new TransfereDesk(appUserForm.getId(), 0);
+
+        model.addAttribute("appUserForm", transfereDesk);
+        return "listDeskFree";
+
+    }
+
+
+    @RequestMapping(value = "/test", method = RequestMethod.POST)
+    public String test(Model model, //
+                       @ModelAttribute("appUserForm") @Validated TransfereDesk appUserForm, //
+                       BindingResult result, //
+                       final RedirectAttributes redirectAttributes) {
+        Desk desk = DeskService.Find(appUserForm.getStartIdDesk(), deskRepository);
+        int idColab;
+        if (desk != null){
+                idColab = desk.getCollaborator().getId();
+            } else{
+                System.out.println("error");
+                model.addAttribute("errorMessage", "Error: ");
+                return "redirect:/desk/listDeskCollaborateur";
+            }
+
+            if (DeskService.MoveCollaboratorDesk(appUserForm.getStartIdDesk(), appUserForm.getEndIdDesk(), deskRepository)){
+                return "redirect:/desk/listDeskCollaborateur?id=" + idColab;
+            }else {
+                return "redirect:/desk/listDeskCollaborateur?id=" + idColab;
+            }
+
     }
 
 }

@@ -12,4 +12,6 @@ import java.util.Optional;
 @Repository
 public interface DeskRepository extends JpaRepository<Desk, Integer> {
     List<Desk> findByCollaboratorLike(Collaborator collaborator);
+
+    List<Desk> findByCollaboratorIsNull();
 }

@@ -43,7 +43,7 @@
             <span th:case="*" th:text="${desk.collaborator.firstName}" />
         </td>
         <td>
-            <form th:action="@{/desk/delete}" th:object="${appUserForm}" method="POST">
+            <form th:action="@{/desk/listDeskFree}" th:object="${appUserForm}" method="POST">
                 <input type="hidden" name="id" th:value="${desk.id}">
                 <button type="submit">Deplacer</button>
             </form>
