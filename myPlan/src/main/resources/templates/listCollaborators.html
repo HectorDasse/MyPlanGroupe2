@@ -42,13 +42,13 @@
         <td th:text="${collaborator.enrollmentTime}"></td>
         <td th:text="${collaborator.departureTime}"></td>
         <td>
-            <form th:action="@{/desk/delete}" th:object="${appUserForm}" method="POST">
+            <form th:action="@{/collaborator/delete}" th:object="${appUserForm}" method="POST">
                 <input type="hidden" name="id" th:value="${collaborator.id}">
                 <button type="submit">Delete</button>
             </form>
         </td>
         <td>
-            <form th:action="@{/desk/redirectUpdate}" th:object="${appUserForm}" method="POST">
+            <form th:action="@{/collaborator/redirectUpdate}" th:object="${appUserForm}" method="POST">
                 <input type="hidden" name="id" th:value="${collaborator.id}">
                 <button type="submit">Update</button>
             </form>

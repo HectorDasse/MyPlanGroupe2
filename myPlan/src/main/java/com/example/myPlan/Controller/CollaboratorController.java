@@ -8,6 +8,8 @@ import com.example.myPlan.Repository.CollaboratorRepository;
 import com.example.myPlan.Repository.DeviceRepository;
 import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Service.CollaboratorService;
+import com.example.myPlan.Service.DeskService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,7 +37,7 @@ public class CollaboratorController {
     @RequestMapping(value = "/addCollaborator", method = RequestMethod.GET)
     public String addCollaborator(Model model) {
         Collaborator form = new Collaborator();
-        List<Desk> desks = (List<Desk>) deskRepository.findAll();
+        List<Desk> desks = (List<Desk>) deskRepository.findByCollaboratorIsNull();
         List<Device> devices = (List<Device>) deviceRepository.findAll();
         
         model.addAttribute("title", "Ajouter un collaborateur");
@@ -60,6 +62,38 @@ public class CollaboratorController {
             return "addCollaborator";
         } else {
             return "Error";
+        }
+    }
+
+    @RequestMapping(value = "/redirectUpdate", method = RequestMethod.POST)
+    public String redirectUpdate(Model model, //
+                         @ModelAttribute("appUserForm") @Validated Collaborator appUserForm, //
+                         BindingResult result, //
+                         final RedirectAttributes redirectAttributes) {
+
+        // Validate result
+        if (result.hasErrors()) {
+            System.out.println("error");
+            model.addAttribute("errorMessage", "Error: ");
+            return "collaborator/listCollaborators";
+        }
+        try {
+            Optional<Collaborator> optionalCollaborator = collaboratorRepository.findById(appUserForm.getId());
+            if (optionalCollaborator.isPresent()){
+                Collaborator collaborator = optionalCollaborator.get();
+                return "redirect:updateCollaborator?id=" + collaborator.getId();
+            } else {
+                System.out.println("error collaborator not found\"");
+                model.addAttribute("errorMessage", "Error: collaborator not found\"");
+                return "redirect:collaborator/listCollaborator";
+            }
+
+        }
+        // Other error!!
+        catch (Exception e) {
+            System.out.println("error get collaborator");
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "collaborator/listCollaborators";
         }
     }
 
@@ -90,6 +124,38 @@ public class CollaboratorController {
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "addCollaborator";
         }
+    }
+
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(Model model, //
+                               @ModelAttribute("appUserForm") @Validated Collaborator appUserForm, //
+                               BindingResult result, //
+                               final RedirectAttributes redirectAttributes) {
+
+        // Validate result
+        if (result.hasErrors()) {
+            System.out.println("error Error: form");
+            model.addAttribute("errorMessage", "Error: form");
+            return "collaborator/listCollaborators";
+        }
+        try {
+            Optional<Collaborator> optionalCollaborator = collaboratorRepository.findById(appUserForm.getId());
+            if (optionalCollaborator.isPresent()){
+                Collaborator collaborator = optionalCollaborator.get();
+                CollaboratorService.deleteCollaborator(collaborator, collaboratorRepository);
+            } else {
+                return "redirect:collaborator/listCollaborators";
+            }
+
+        }
+        // Other error!!
+        catch (Exception e) {
+            System.out.println("error get collaborator");
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "collaborator/listCollaborators";
+        }
+        return "redirect:/collaborator/listCollaborators";
     }
 
     @RequestMapping(value = "/listCollaborators", method = RequestMethod.GET)
