@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:utext="${title}"></title>
+    <style>
+        th, td {
+            padding: 5px;
+            border: double 2px #A0A6F3;
+        }
+        .error {
+            color: red;
+            font-style: italic;
+        }
+    </style>
+</head>
+
+
+<body>
+
+
+<table>
+    <tr>
+        <td>Nom</td>
+        <td>Type</td>
+        <td>Numéro</td>
+        <td>Collaborateur</td>
+        <td>Bureau</td>
+        <td>Id</td>
+
+    </tr>
+    <tr th:each="device : ${deviceList}">
+        <td th:text="${device.name}"></td>
+        <td th:text="${device.type}"></td>
+        <td th:text="${device.number}"></td>
+        <td th:switch="${device.collaborator}">
+            <span th:case="null" th:text="Null" />
+            <span th:case="*" th:text="${device.collaborator.firstName}" />
+        </td>
+        <td th:switch="${device.desk}">
+            <span th:case="null" th:text="Null" />
+            <span th:case="*" th:text="${device.desk.numero}" />
+        </td>
+        <td th:text="${device.id}"></td>
+        <!-- <td><a data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-edit"></span></a></td> -->
+    </tr>
+</table>
+
+</body>
+</html>

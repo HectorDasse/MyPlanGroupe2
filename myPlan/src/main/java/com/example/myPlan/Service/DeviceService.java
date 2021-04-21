@@ -6,9 +6,9 @@ import com.example.myPlan.Repository.DeviceRepository;
 import java.util.Optional;
 
 public class DeviceService {
-    public static boolean saveDevice(String name, String type, String number, DeviceRepository deviceRepository){
+    public static boolean saveDevice(String name, String type, String number, Collaborator collaborator, Desk desk, DeviceRepository deviceRepository){
         try {
-            Device device = new Device(name, type, number);
+            Device device = new Device(name, type, number, collaborator, desk);
             deviceRepository.save(device);
 
             return true;
@@ -18,7 +18,7 @@ public class DeviceService {
         }
     }
 
-    public static boolean updateDevice(Device device, String name, String type, String number, DeviceRepository deviceRepository){
+    public static boolean updateDevice(Device device, String name, String type, String number, Collaborator collaborator, Desk desk, DeviceRepository deviceRepository){
 
         try {
             Optional<Device> deviceToUpdate = deviceRepository.findById(device.getId());
@@ -27,6 +27,8 @@ public class DeviceService {
                 deviceUpdated.setName(name);
                 deviceUpdated.setType(type);
                 deviceUpdated.setNumber(number);
+                deviceUpdated.setCollaborator(collaborator);
+                deviceUpdated.setDesk(desk);
 
                 deviceRepository.save(deviceUpdated);
 
