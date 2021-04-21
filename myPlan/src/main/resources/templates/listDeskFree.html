@@ -30,7 +30,7 @@
         <td th:text="${desk.numero}"></td>
         <td th:text="${desk.comment}"></td>
         <td>
-            <form th:action="@{/desk/test}" th:object="${appUserForm}" method="POST">
+            <form th:action="@{/desk/MoveCollaboratorDesk}" th:object="${appUserForm}" method="POST">
                 <input  name="EndIdDesk" th:value="${desk.id}">
                 <input  name="startIdDesk" th:value="${appUserForm.startIdDesk}">
                 <button type="submit">Affecter</button>
