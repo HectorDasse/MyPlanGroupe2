@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:utext="${title}"></title>
+    <!-- style>
+        th, td {
+            padding: 5px;
+            border: double 2px #A0A6F3;
+        }
+        .error {
+            color: red;
+            font-style: italic;
+        }
+    </style-->
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+
+<body>
+<div th:if="${errorMessage != null}"
+     th:utext="${errorMessage}" class="error">...</div>
+
+<table>
+    <tr class="line">
+        <th>Numero</th>
+        <th>Comment</th>
+        <th>affecté</th>
+
+    </tr>
+    <tr th:each="desk : ${deskList}" class="line">
+        <td th:text="${desk.numero}"></td>
+        <td th:text="${desk.comment}"></td>
+        <td>
+            <form th:action="@{/desk/test}" th:object="${appUserForm}" method="POST">
+                <input  name="EndIdDesk" th:value="${desk.id}">
+                <input  name="startIdDesk" th:value="${appUserForm.startIdDesk}">
+                <button type="submit">Affecter</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>
