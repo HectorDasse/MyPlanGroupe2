@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.util.Optional;
 import java.util.List;
@@ -145,6 +146,23 @@ public class DeskController {
         return "listDesk";
     }
 
+    @RequestMapping(value = "/listDeskCollaborateur", method = RequestMethod.GET)
+    public String listDeskCollaborateur(@RequestParam int id,  Model model) {
+        Optional<Collaborator> optionalCollaborator = collaboratorRepository.findById(id);
+
+        if (optionalCollaborator.isPresent()){
+            Collaborator collaborator = optionalCollaborator.get();
+            List<Desk> desks = deskRepository.findByCollaboratorLike(collaborator);
+            model.addAttribute("deskList", desks);
+            Desk desk = new Desk();
+            model.addAttribute("appUserForm", desk);
+            return "listDeskCollaborator";
+        }else {
+            return "redirect:/desk/listDeskCollaborator";
+        }
+    }
+
+
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(Model model, //
                                @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
@@ -176,6 +194,33 @@ public class DeskController {
             return "desk/listDesk";
         }
         return "redirect:/desk/listDesk";
+    }
+
+
+    @RequestMapping(value = "/deskDisaffected", method = RequestMethod.POST)
+    public String deskDisaffected(Model model, //
+                                 @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
+                                 BindingResult result, //
+                                 final RedirectAttributes redirectAttributes) {
+
+        // Validate result
+        if (result.hasErrors()) {
+            System.out.println("error");
+            model.addAttribute("errorMessage", "Error: ");
+            return "redirect:/desk/listDeskCollaborateur";
+        }
+
+        Desk desk = DeskService.Find(appUserForm.getId(), deskRepository);
+        int idColab = desk.getCollaborator().getId();
+
+        boolean answer = DeskService.disaffected(desk, deskRepository);
+        if (answer){
+            return "redirect:/desk/listDeskCollaborateur?id=" + idColab;
+        } else {
+            System.out.println("error desk pas trouvé");
+            model.addAttribute("errorMessage", "Error: problemen enregistrement");
+            return "redirect:/desk/listDeskCollaborateur?id=" + idColab;
+        }
     }
 
 }

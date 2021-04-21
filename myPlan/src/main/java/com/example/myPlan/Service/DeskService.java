@@ -46,6 +46,18 @@ public class DeskService {
         return true;
     };
 
+    public static boolean disaffected(Desk desk, DeskRepository deskRepository){
+
+        try {
+            desk.setCollaborator(null);
+            deskRepository.save(desk);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
     public static boolean deleteDesk(Desk desk, DeskRepository deskRepository){
         try {
             System.out.println("delete");
@@ -69,6 +81,18 @@ public class DeskService {
         model.addAttribute("appUserForm", desk);
 
         return model;
+    }
+
+    public static Desk Find(int id, DeskRepository deskRepository) {
+
+        Optional<Desk> optionalDesk = deskRepository.findById(id);
+        if (optionalDesk.isPresent()){
+            Desk desk = optionalDesk.get();
+            return desk;
+        } else {
+            return null;
+        }
+
     }
 
 }

@@ -1,0 +1,62 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:utext="${title}"></title>
+    <!-- style>
+        th, td {
+            padding: 5px;
+            border: double 2px #A0A6F3;
+        }
+        .error {
+            color: red;
+            font-style: italic;
+        }
+    </style-->
+    <link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<script>
+
+    function onclick(test){
+        alert(test)
+    }
+
+</script>
+
+<body>
+<div th:if="${errorMessage != null}"
+     th:utext="${errorMessage}" class="error">...</div>
+
+<table>
+    <tr class="line">
+        <th>Numero</th>
+        <th>Comment</th>
+        <th>Collaborateur</th>
+        <th>Deplacer</th>
+        <th>désaffecté</th>
+
+    </tr>
+    <tr th:each="desk : ${deskList}" class="line">
+        <td th:text="${desk.numero}"></td>
+        <td th:text="${desk.comment}"></td>
+        <td th:switch="${desk.collaborator}">
+            <span th:case="null" th:text="Null" />
+            <span th:case="*" th:text="${desk.collaborator.firstName}" />
+        </td>
+        <td>
+            <form th:action="@{/desk/delete}" th:object="${appUserForm}" method="POST">
+                <input type="hidden" name="id" th:value="${desk.id}">
+                <button type="submit">Deplacer</button>
+            </form>
+        </td>
+        <td>
+            <form th:action="@{/desk/deskDisaffected}" th:object="${appUserForm}" method="POST">
+                <input type="hidden" name="id" th:value="${desk.id}">
+                <button type="submit">désaffecté</button>
+            </form>
+        </td>
+        <!-- <td><a data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-edit"></span></a></td> -->
+    </tr>
+</table>
+
+</body>
+</html>
