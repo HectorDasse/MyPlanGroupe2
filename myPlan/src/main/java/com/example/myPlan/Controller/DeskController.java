@@ -78,7 +78,7 @@ public class DeskController {
         if (result.hasErrors()) {
             System.out.println("error");
             model.addAttribute("errorMessage", "Error: ");
-            return "desk/listDesk";
+            return "desk/listDesks";
         }
         try {
             Optional<Desk> optionalDesk = deskRepository.findById(appUserForm.getId());
@@ -88,7 +88,7 @@ public class DeskController {
             } else {
                 System.out.println("error desk pas trouvé\"");
                 model.addAttribute("errorMessage", "Error: desk pas trouvé\"");
-                return "redirect:desk/listDesk";
+                return "redirect:desk/listDesks";
             }
 
         }
@@ -96,7 +96,7 @@ public class DeskController {
         catch (Exception e) {
             System.out.println("error get desk");
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
-            return "desk/listDesk";
+            return "desk/listDesks";
         }
     }
 
@@ -119,7 +119,7 @@ public class DeskController {
                 //update
 
                 if (DeskService.updateDesk(appUserForm.getId(), appUserForm.getNumero(), appUserForm.getComment(), appUserForm.getDevices(), appUserForm.getCollaborator(), deskRepository)){
-                    return "redirect:/desk/listDesk";
+                    return "redirect:/desk/listDesks";
                 } else {
                     model.addAttribute("errorMessage", "Error: " + "Item not found");
                     return "addDesk";
@@ -133,16 +133,16 @@ public class DeskController {
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "addDesk";
         }
-        return "redirect:/desk/listDesk";
+        return "redirect:/desk/listDesks";
     }
 
-    @RequestMapping(value = "/listDesk", method = RequestMethod.GET)
-    public String listDesk(Model model) {
+    @RequestMapping(value = "/listDesks", method = RequestMethod.GET)
+    public String listDesks(Model model) {
         List<Desk> desks = deskRepository.findAll();
         model.addAttribute("deskList", desks);
         Desk desk = new Desk();
         model.addAttribute("appUserForm", desk);
-        return "listDesk";
+        return "listDesks";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -155,7 +155,7 @@ public class DeskController {
         if (result.hasErrors()) {
             System.out.println("error Error: formulaire");
             model.addAttribute("errorMessage", "Error: formulaire");
-            return "desk/listDesk";
+            return "desk/listDesks";
         }
         try {
             Optional<Desk> optionalDesk = deskRepository.findById(appUserForm.getId());
@@ -165,7 +165,7 @@ public class DeskController {
             } else {
                 System.out.println("error desk pas trouvé");
                 model.addAttribute("errorMessage", "Error: desk pas trouvé");
-                return "redirect:desk/listDesk";
+                return "redirect:desk/listDesks";
             }
 
         }
@@ -173,9 +173,9 @@ public class DeskController {
         catch (Exception e) {
             System.out.println("error get desk");
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
-            return "desk/listDesk";
+            return "desk/listDesks";
         }
-        return "redirect:/desk/listDesk";
+        return "redirect:/desk/listDesks";
     }
 
 }
