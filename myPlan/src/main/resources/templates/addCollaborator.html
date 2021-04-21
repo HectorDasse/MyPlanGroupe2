@@ -32,11 +32,11 @@
     <table>
         <tr class="line">
             <td>First name</td>
-            <td><input type="text" th:field="*{FirstName}" required/> </td>
+            <td><input type="text" th:field="*{FirstName}" pattern="[a-zA-ZÀ-ÿ-']{1,128}" required/> </td>
         </tr>
         <tr class="line">
             <td>Last name</td>
-            <td><input type="text" th:field="*{LastName}" required/> </td>
+            <td><input type="text" th:field="*{LastName}" pattern="[a-zA-ZÀ-ÿ-']{1,128}" required/> </td>
         </tr>
         <tr class="line">
             <td>Enrollment time</td>

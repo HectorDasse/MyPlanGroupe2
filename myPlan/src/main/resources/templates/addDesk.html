@@ -31,12 +31,12 @@
 <form th:action="@{/desk/register}" th:object="${appUserForm}" method="POST">
     <table>
         <tr class="line">
-            <td>Numero</td>
-            <td><input type="text" th:field="*{numero}" /> </td>
+            <td>Number</td>
+            <td><input type="text" th:field="*{numero}" pattern="[0-9]{1,10}" /> </td>
         </tr>
         <tr class="line">
-            <td>Commentaire</td>
-            <td><input type="text" th:field="*{comment}" /> </td>
+            <td>Comment</td>
+            <td><input type="text" th:field="*{comment}" maxlength="128" /> </td>
         </tr>
         <tr class="line">
             <td><input type="hidden" th:field="*{id}" /> </td>
