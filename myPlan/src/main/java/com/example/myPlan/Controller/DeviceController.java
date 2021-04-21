@@ -93,13 +93,13 @@ public class DeviceController {
         }
     }
 
-    @RequestMapping(value = "/listDevice", method = RequestMethod.GET)
-    public String listDevice(Model model) {
+    @RequestMapping(value = "/listDevices", method = RequestMethod.GET)
+    public String listDevices(Model model) {
         List<Device> devices = deviceRepository.findAll();
         model.addAttribute("deviceList", devices);
         Device device = new Device();
         model.addAttribute("appUserForm", device);
-        return "listDevice";
+        return "listDevices";
     }
 
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
@@ -112,7 +112,7 @@ public class DeviceController {
         if (result.hasErrors()) {
             System.out.println("error Error: formulaire");
             model.addAttribute("errorMessage", "Error: formulaire");
-            return "device/listDevice";
+            return "device/listDevices";
         }
         try {
             Optional<Device> optionalDevice = deviceRepository.findById(appUserForm.getId());
@@ -122,7 +122,7 @@ public class DeviceController {
             } else {
                 System.out.println("error device pas trouvé");
                 model.addAttribute("errorMessage", "Error: device pas trouvé");
-                return "redirect:device/listDevice";
+                return "redirect:device/listDevices";
             }
 
         }
@@ -130,8 +130,8 @@ public class DeviceController {
         catch (Exception e) {
             System.out.println("error get device");
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
-            return "device/listDevice";
+            return "device/listDevices";
         }
-        return "redirect:/device/listDevice";
+        return "redirect:/device/listDevices";
     }
 }
