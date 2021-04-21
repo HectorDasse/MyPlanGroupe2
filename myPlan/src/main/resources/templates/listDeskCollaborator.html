@@ -12,9 +12,15 @@
             font-style: italic;
         }
     </style-->
-	<link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
+<script>
 
+    function onclick(test){
+        alert(test)
+    }
+
+</script>
 
 <body>
 <div th:if="${errorMessage != null}"
@@ -22,44 +28,35 @@
 
 <table>
     <tr class="line">
-        <th>Number</th>
+        <th>Numero</th>
         <th>Comment</th>
-        <th>Collaborator</th>
-        <th>Devices</th>
-        <th>Delete</th>
-        <th>Update</th>
+        <th>Collaborateur</th>
+        <th>Deplacer</th>
+        <th>Désaffecté</th>
 
     </tr>
     <tr th:each="desk : ${deskList}" class="line">
         <td th:text="${desk.numero}"></td>
         <td th:text="${desk.comment}"></td>
         <td th:switch="${desk.collaborator}">
-            <span th:case="null" th:text="Null" />
-            <span th:case="*" th:text="${desk.collaborator.firstName}" />
+            <span th:case="null" th:text="Null"></span>
+            <span th:case="*" th:text="${desk.collaborator.firstName}"></span>
         </td>
         <td>
-            <ul>
-                <li th:each="item :${desk.devices}" th:text="${item.name}"></li>
-            </ul>
-        </td>
-        <td>
-            <form th:action="@{/desk/delete}" th:object="${appUserForm}" method="POST">
+            <form th:action="@{/desk/listDeskFree}" th:object="${appUserForm}" method="POST">
                 <input type="hidden" name="id" th:value="${desk.id}">
-                <button type="submit">Delete</button>
+                <button type="submit">Déplacer</button>
             </form>
         </td>
         <td>
-            <form th:action="@{/desk/redirectUpdate}" th:object="${appUserForm}" method="POST">
+            <form th:action="@{/desk/deskDisaffected}" th:object="${appUserForm}" method="POST">
                 <input type="hidden" name="id" th:value="${desk.id}">
-                <button type="submit">Update</button>
+                <button type="submit">Désaffecter</button>
             </form>
         </td>
         <!-- <td><a data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-edit"></span></a></td> -->
     </tr>
 </table>
-<form th:action="@{/desk/addDesk}" method="GET" class="line">
-    <button type="submit">Create</button>
-</form>
 
 </body>
 </html>

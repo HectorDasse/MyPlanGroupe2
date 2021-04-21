@@ -32,11 +32,11 @@
     <table>
         <tr class="line">
             <td>Number</td>
-            <td><input type="tel" th:field="*{number}" required/> </td>
+            <td><input type="tel" th:field="*{number}" pattern="[0-9+/]{4,13}" required/> </td>
         </tr>
         <tr class="line">
             <td>Name</td>
-            <td><input type="text" th:field="*{name}" required/> </td>
+            <td><input type="text" th:field="*{name}" pattern="[0-9a-zA-ZÀ-ÿ-']{1,128}" required/> </td>
         </tr>
         <tr class="line">
             <td>Type</td>

@@ -8,6 +8,7 @@ import com.example.myPlan.Repository.CollaboratorRepository;
 import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Repository.DeviceRepository;
 import com.example.myPlan.Service.DeskService;
+import com.example.myPlan.Tools.TransfereDesk;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import sun.security.krb5.internal.crypto.Des;
 
 import java.util.Optional;
 import java.util.List;
@@ -145,6 +147,23 @@ public class DeskController {
         return "listDesks";
     }
 
+    @RequestMapping(value = "/listDeskCollaborateur", method = RequestMethod.GET)
+    public String listDeskCollaborateur(@RequestParam int id,  Model model) {
+        Optional<Collaborator> optionalCollaborator = collaboratorRepository.findById(id);
+
+        if (optionalCollaborator.isPresent()){
+            Collaborator collaborator = optionalCollaborator.get();
+            List<Desk> desks = deskRepository.findByCollaboratorLike(collaborator);
+            model.addAttribute("deskList", desks);
+            Desk desk = new Desk();
+            model.addAttribute("appUserForm", desk);
+            return "listDeskCollaborator";
+        }else {
+            return "redirect:/";
+        }
+    }
+
+
     @RequestMapping(value = "/delete", method = RequestMethod.POST)
     public String delete(Model model, //
                                @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
@@ -176,6 +195,72 @@ public class DeskController {
             return "desk/listDesks";
         }
         return "redirect:/desk/listDesks";
+    }
+
+
+    @RequestMapping(value = "/deskDisaffected", method = RequestMethod.POST)
+    public String deskDisaffected(Model model, //
+                                 @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
+                                 BindingResult result, //
+                                 final RedirectAttributes redirectAttributes) {
+
+        // Validate result
+        if (result.hasErrors()) {
+            System.out.println("error");
+            model.addAttribute("errorMessage", "Error: ");
+            return "redirect:/desk/listDeskCollaborateur";
+        }
+
+        Desk desk = DeskService.Find(appUserForm.getId(), deskRepository);
+        int idColab = desk.getCollaborator().getId();
+
+        boolean answer = DeskService.disaffected(desk, deskRepository);
+        if (answer){
+            return "redirect:/desk/listDeskCollaborateur?id=" + idColab;
+        } else {
+            System.out.println("error desk pas trouvé");
+            model.addAttribute("errorMessage", "Error: problemen enregistrement");
+            return "redirect:/desk/listDeskCollaborateur?id=" + idColab;
+        }
+    }
+
+    @RequestMapping(value = "/listDeskFree", method = RequestMethod.POST)
+    public String listDeskFree(Model model, //
+                               @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
+                               BindingResult result, //
+                               final RedirectAttributes redirectAttributes) {
+
+        List<Desk> desks = deskRepository.findByCollaboratorIsNull();
+        model.addAttribute("deskList", desks);
+        TransfereDesk transfereDesk = new TransfereDesk(appUserForm.getId(), 0);
+
+        model.addAttribute("appUserForm", transfereDesk);
+        return "listDeskFree";
+
+    }
+
+
+    @RequestMapping(value = "/MoveCollaboratorDesk", method = RequestMethod.POST)
+    public String MoveCollaboratorDesk(Model model, //
+                       @ModelAttribute("appUserForm") @Validated TransfereDesk appUserForm, //
+                       BindingResult result, //
+                       final RedirectAttributes redirectAttributes) {
+        Desk desk = DeskService.Find(appUserForm.getStartIdDesk(), deskRepository);
+        int idColab;
+        if (desk != null){
+                idColab = desk.getCollaborator().getId();
+            } else{
+                System.out.println("error");
+                model.addAttribute("errorMessage", "Error: ");
+                return "redirect:/desk/listDeskCollaborateur";
+            }
+
+            if (DeskService.MoveCollaboratorDesk(appUserForm.getStartIdDesk(), appUserForm.getEndIdDesk(), deskRepository)){
+                return "redirect:/desk/listDeskCollaborateur?id=" + idColab;
+            }else {
+                return "redirect:/desk/listDeskCollaborateur?id=" + idColab;
+            }
+
     }
 
 }

@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:utext="${title}"></title>
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+</head>
+<body>
+
+<!-- Include _menu.html
+<th:block th:include="/_menu"></th:block>-->
+
+<h2>Register</h2>
+
+<div th:if="${errorMessage != null}"
+     th:utext="${errorMessage}" class="error">...</div>
+
+<form th:action="@{/user/register}" th:object="${appUserForm}" method="POST">
+    <table>
+        <tr class="line">
+            <td>Login</td>
+            <td><input type="text" th:field="*{username}" pattern="[a-zA-ZÀ-ÿ-']{1,128}" required/> </td>
+        </tr>
+        <tr class="line">
+            <td>Password</td>
+            <td><input type="password" th:field="*{password}" pattern="[a-zA-ZÀ-ÿ-']{1,128}" required/> </td>
+        </tr>
+        <tr class="line">
+            <td><input type="hidden" th:field="*{userId}" /> </td>
+        </tr>
+
+        <tr class="line">
+            <td>&nbsp;</td>
+            <td>
+                <input type="submit" value="Submit" />
+                <a th:href="@{/}">Cancel</a>
+            </td>
+            <td>&nbsp;</td>
+        </tr>
+    </table>
+</form>
+
+</body>
+</html>

@@ -38,7 +38,7 @@ public class CollaboratorService {
         return true;
     }
 	
-    public boolean deleteCollaborator(Collaborator collaborators, CollaboratorRepository collaboratorsRepository) {
+    public static boolean deleteCollaborator(Collaborator collaborators, CollaboratorRepository collaboratorsRepository) {
         try {
             collaboratorsRepository.delete(collaborators);
             return true;

@@ -32,11 +32,11 @@
     <table>
         <tr class="line">
             <td>First name</td>
-            <td><input type="text" th:field="*{FirstName}" required/> </td>
+            <td><input type="text" th:field="*{FirstName}" pattern="[a-zA-ZÀ-ÿ-']{1,128}" required/> </td>
         </tr>
         <tr class="line">
             <td>Last name</td>
-            <td><input type="text" th:field="*{LastName}" required/> </td>
+            <td><input type="text" th:field="*{LastName}" pattern="[a-zA-ZÀ-ÿ-']{1,128}" required/> </td>
         </tr>
         <tr class="line">
             <td>Enrollment time</td>
@@ -45,6 +45,31 @@
         <tr class="line">
             <td>Departure time</td>
             <td><input type="date" th:field="*{DepartureTime}" /> </td>
+        </tr>
+        <tr class="line">
+            <td>Device</td>
+            <td>
+				<select>
+				    <option value=""> -- </option>
+				    <option 
+				    		th:each="itemDevice : ${devices}"
+				            th:value="${itemDevice.id}"
+				            th:utext="${itemDevice.name}" />
+				</select>
+			</td>
+        </tr>
+
+        <tr class="line">
+            <td>Desk</td>
+            <td>
+				<select>
+				    <option value=""> -- </option>
+				    <option 
+				    		th:each="itemDesk : ${desks}"
+				            th:value="${itemDesk.id}"
+				            th:utext="${itemDesk.numero}" />
+				</select>
+			</td>
         </tr>
         <tr class="line">
             <td><input type="hidden" th:field="*{id}" /> </td>

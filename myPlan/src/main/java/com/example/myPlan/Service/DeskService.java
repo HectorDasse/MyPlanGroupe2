@@ -6,7 +6,6 @@ import com.example.myPlan.Entities.Device;
 import com.example.myPlan.Repository.CollaboratorRepository;
 import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Repository.DeviceRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
 import java.util.List;
@@ -46,6 +45,18 @@ public class DeskService {
         return true;
     };
 
+    public static boolean disaffected(Desk desk, DeskRepository deskRepository){
+
+        try {
+            desk.setCollaborator(null);
+            deskRepository.save(desk);
+            return true;
+        } catch (Exception e) {
+            return false;
+        }
+
+    }
+
     public static boolean deleteDesk(Desk desk, DeskRepository deskRepository){
         try {
             System.out.println("delete");
@@ -69,6 +80,37 @@ public class DeskService {
         model.addAttribute("appUserForm", desk);
 
         return model;
+    }
+
+    public static Desk Find(int id, DeskRepository deskRepository) {
+
+        Optional<Desk> optionalDesk = deskRepository.findById(id);
+        if (optionalDesk.isPresent()){
+            Desk desk = optionalDesk.get();
+            return desk;
+        } else {
+            return null;
+        }
+    }
+
+    public static boolean MoveCollaboratorDesk(int idStartDest, int idEndDesk, DeskRepository deskRepository){
+
+        Optional<Desk> optionalDeskStart = deskRepository.findById(idStartDest);
+        Optional<Desk> optionalDeskEnd = deskRepository.findById(idEndDesk);
+        if (optionalDeskStart.isPresent() && optionalDeskEnd.isPresent()){
+            Desk deskStart = optionalDeskStart.get();
+            Desk deskEnd = optionalDeskEnd.get();
+
+            deskEnd.setCollaborator(deskStart.getCollaborator());
+            deskStart.setCollaborator(null);
+            deskRepository.save(deskEnd);
+            deskRepository.save(deskStart);
+
+            return true;
+        } else {
+            return false;
+        }
+
     }
 
 }
