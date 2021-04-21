@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title th:utext="${title}"></title>
-    <style>
+    <!--style>
         th, td {
             padding: 5px;
         }
@@ -15,7 +15,8 @@
             color: red;
             font-style: italic;
         }
-    </style>
+    </style-->
+<link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
 <body>
 
@@ -29,18 +30,18 @@
 
 <form th:action="@{/desk/register}" th:object="${appUserForm}" method="POST">
     <table>
-        <tr>
+        <tr class="line">
             <td>Numero</td>
             <td><input type="text" th:field="*{numero}" /> </td>
         </tr>
-        <tr>
+        <tr class="line">
             <td>Commentaire</td>
             <td><input type="text" th:field="*{comment}" /> </td>
         </tr>
-        <tr>
+        <tr class="line">
             <td><input type="hidden" th:field="*{id}" /> </td>
         </tr>
-        <tr>
+        <tr class="line">
             <td>Device</td>
             <td>
                 <select multiple th:field="*{devices}">
@@ -51,7 +52,7 @@
                 </select>
         </tr>
 
-        <tr>
+        <tr class="line">
             <td>Collaborateur</td>
             <td>
                 <select th:field="*{collaborator}">
@@ -62,7 +63,7 @@
                 </select>
         </tr>
 
-        <tr>
+        <tr class="line">
             <td>&nbsp;</td>
             <td>
                 <input type="submit" value="Submit" />

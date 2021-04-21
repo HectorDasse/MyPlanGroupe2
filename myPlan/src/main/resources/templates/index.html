@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html>
+<head>
+	<meta charset="UTF-8">
+	<link rel="stylesheet" th:href="@{/css/main.css}">
+	
+	<title>My plan --- menu</title>
+</head>
+<body>
+<table>
+	<tr>
+		<td class="line">
+			<input type="button" value="Ajouter un collaborateur" onclick="document.location.href='collaborator/addCollaborator';"/>
+		</td>
+	</tr>
+	<tr>
+		<td class="line">
+			<input type="button" value="Ajouter un bureau" onclick="document.location.href='desk/addDesk';"/>
+		</td>
+	</tr>
+	<tr>
+		<td class="line">
+			<input type="button" value="Ajouter un matériel" onclick="document.location.href='device/addDevice';"/>
+		</td>
+	</tr>
+	<tr>
+		<td class="line">
+			<input type="button" value="Modifier un collaborateur" onclick="document.location.href='collaborator/updateCollaborator?id=' + document.getElementById('collabNumber').value;"/>
+			
+			<select>
+			    <option value=""> -- </option>
+			    <option id="collabNumber"
+			    		th:each="itemCollaborator : ${collaborator}"
+			            th:value="${itemCollaborator.id}"
+			            th:utext="${itemCollaborator.firstName}" />
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="line">
+			<input type="button" value="Modifier un bureau" onclick="document.location.href='desk/updateDesk?id=' + document.getElementById('deskNumber').value;"/>
+			
+			<select>
+			    <option value=""> -- </option>
+			    <option id="deskNumber"
+			    		th:each="itemDesk : ${desk}"
+			            th:value="${itemDesk.id}"
+			            th:utext="${itemDesk.numero}" />
+			</select>
+		</td>
+	</tr>
+	<tr>
+		<td class="line">
+			<input type="button" value="Modifier un matériel" onclick="document.location.href='device/updateDevice?id=' + document.getElementById('deviceNumber').value;"/>
+			
+			<select>
+			    <option value=""> -- </option>
+			    <option id="deviceNumber"
+			    		th:each="itemDevice : ${device}"
+			            th:value="${itemDevice.id}"
+			            th:utext="${itemDevice.number}" />
+			</select>
+		</td>
+	</tr>
+</table>
+</body>
+</html>

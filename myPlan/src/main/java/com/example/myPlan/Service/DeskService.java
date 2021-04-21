@@ -48,9 +48,11 @@ public class DeskService {
 
     public static boolean deleteDesk(Desk desk, DeskRepository deskRepository){
         try {
+            System.out.println("delete");
             deskRepository.delete(desk);
 
         } catch (Exception e) {
+            System.out.println("error " + e.getMessage());
             return false;
         }
         return true;
@@ -58,12 +60,12 @@ public class DeskService {
 
     }
 
-    public static Model setModelFormulaire(Model model, Desk desk, DeviceRepository deviceRepository, CollaboratorRepository collaboratorRepository){
+    public static Model setModelFormulaire(Model model, Desk desk, String titre, DeviceRepository deviceRepository, CollaboratorRepository collaboratorRepository){
         List<Device> devices = deviceRepository.findAll();
         model.addAttribute("DevicesObject", devices);
         List<Collaborator> collaborator = (List<Collaborator>) collaboratorRepository.findAll();
         model.addAttribute("collaboratorObject", collaborator);
-        model.addAttribute("title", "Ajouter un bureau");
+        model.addAttribute("title", titre);
         model.addAttribute("appUserForm", desk);
 
         return model;
