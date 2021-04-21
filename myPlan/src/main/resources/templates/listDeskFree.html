@@ -30,9 +30,9 @@
         <td th:text="${desk.numero}"></td>
         <td th:text="${desk.comment}"></td>
         <td>
-            <form th:action="@{/desk/test}" th:object="${appUserForm}" method="POST">
-                <input  name="EndIdDesk" th:value="${desk.id}">
-                <input  name="startIdDesk" th:value="${appUserForm.startIdDesk}">
+            <form th:action="@{/desk/MoveCollaboratorDesk}" th:object="${appUserForm}" method="POST">
+                <input type="hidden" name="EndIdDesk" th:value="${desk.id}">
+                <input type="hidden" name="startIdDesk" th:value="${appUserForm.startIdDesk}">
                 <button type="submit">Affecter</button>
             </form>
         </td>

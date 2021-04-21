@@ -32,15 +32,15 @@
         <th>Comment</th>
         <th>Collaborateur</th>
         <th>Deplacer</th>
-        <th>désaffecté</th>
+        <th>Désaffecté</th>
 
     </tr>
     <tr th:each="desk : ${deskList}" class="line">
         <td th:text="${desk.numero}"></td>
         <td th:text="${desk.comment}"></td>
         <td th:switch="${desk.collaborator}">
-            <span th:case="null" th:text="Null" />
-            <span th:case="*" th:text="${desk.collaborator.firstName}" />
+            <span th:case="null" th:text="Null"></span>
+            <span th:case="*" th:text="${desk.collaborator.firstName}"></span>
         </td>
         <td>
             <form th:action="@{/desk/listDeskFree}" th:object="${appUserForm}" method="POST">

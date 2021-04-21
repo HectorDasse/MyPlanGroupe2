@@ -14,13 +14,7 @@
     </style-->
 	<link rel="stylesheet" th:href="@{/css/main.css}">
 </head>
-<script>
 
-    function onclick(test){
-        alert(test)
-    }
-
-</script>
 
 <body>
 <div th:if="${errorMessage != null}"
@@ -31,6 +25,7 @@
         <th>Number</th>
         <th>Comment</th>
         <th>Collaborator</th>
+        <th>Devices</th>
         <th>Delete</th>
         <th>Update</th>
 
@@ -41,6 +36,11 @@
         <td th:switch="${desk.collaborator}">
             <span th:case="null" th:text="Null" />
             <span th:case="*" th:text="${desk.collaborator.firstName}" />
+        </td>
+        <td>
+            <ul>
+                <li th:each="item :${desk.devices}" th:text="${item.name}"></li>
+            </ul>
         </td>
         <td>
             <form th:action="@{/desk/delete}" th:object="${appUserForm}" method="POST">
