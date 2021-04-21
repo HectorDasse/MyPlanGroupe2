@@ -157,9 +157,9 @@ public class DeskController {
             model.addAttribute("deskList", desks);
             Desk desk = new Desk();
             model.addAttribute("appUserForm", desk);
-            return "listDeskCollaborator";
+            return "listDeskCollaborateur";
         }else {
-            return "redirect:/desk/listDeskCollaborator";
+            return "redirect:/desk/listDeskCollaborateur";
         }
     }
 
@@ -240,8 +240,8 @@ public class DeskController {
     }
 
 
-    @RequestMapping(value = "/test", method = RequestMethod.POST)
-    public String test(Model model, //
+    @RequestMapping(value = "/MoveCollaboratorDesk", method = RequestMethod.POST)
+    public String MoveCollaboratorDesk(Model model, //
                        @ModelAttribute("appUserForm") @Validated TransfereDesk appUserForm, //
                        BindingResult result, //
                        final RedirectAttributes redirectAttributes) {
