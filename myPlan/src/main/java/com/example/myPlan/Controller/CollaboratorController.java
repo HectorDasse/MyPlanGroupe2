@@ -37,8 +37,8 @@ public class CollaboratorController {
     @RequestMapping(value = "/addCollaborator", method = RequestMethod.GET)
     public String addCollaborator(Model model) {
         Collaborator form = new Collaborator();
-        List<Desk> desks = (List<Desk>) deskRepository.findByCollaboratorIsNull();
-        List<Device> devices = (List<Device>) deviceRepository.findAll();
+        List<Device> devices = deviceRepository.findAll();
+        List<Desk> desks = deskRepository.findByCollaboratorIsNull();
         
         model.addAttribute("title", "Ajouter un collaborateur");
         model.addAttribute("appUserForm", form);

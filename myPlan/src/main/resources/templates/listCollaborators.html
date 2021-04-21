@@ -53,10 +53,16 @@
                 <button type="submit">Update</button>
             </form>
         </td>
+        <td>
+            <form th:action="@{/desk/listDeskCollaborateur}" th:object="${appUserForm}" method="GET">
+                <input type="hidden" name="id" th:value="${collaborator.id}">
+                <button type="submit">List desks</button>
+            </form>
+        </td>
         <!-- <td><a data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-edit"></span></a></td> -->
     </tr>
 </table>
-<form th:action="@{/desk/addDesk}" method="GET" class="line">
+<form th:action="@{/collaborator/addCollaborator}" method="GET" class="line">
     <button type="submit">Create</button>
 </form>
 
