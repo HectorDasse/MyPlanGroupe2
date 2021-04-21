@@ -1,5 +1,12 @@
 package com.example.myPlan.Controller;
 
+import com.example.myPlan.Entities.Desk;
+import com.example.myPlan.Entities.Device;
+import com.example.myPlan.Repository.DeskRepository;
+import com.example.myPlan.Repository.DeviceRepository;
+import com.example.myPlan.Service.CollaboratorService;
+import com.example.myPlan.Service.DeskService;
+import com.example.myPlan.Service.DeviceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,11 +14,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import com.example.myPlan.Entities.Device;
-import com.example.myPlan.Repository.DeskRepository;
-import com.example.myPlan.Repository.DeviceRepository;
-import com.example.myPlan.Service.DeviceService;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +23,7 @@ import java.util.Optional;
 public class DeviceController {
 
     @Autowired
+    private DeskRepository deskRepository;
     private DeviceRepository deviceRepository;
 
 
@@ -74,22 +77,61 @@ public class DeviceController {
         try {
 
             if (appUserForm.getId() == null) {
-            	if (deviceRepository == null)
-            		return "redirect:/device/addDevice";
-                DeviceService.saveDevice(appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), deviceRepository);
+                DeviceService.saveDevice(appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), appUserForm.getCollaborator(), appUserForm.getDesk(), deviceRepository);
             } else {
                 //update
-                DeviceService.updateDevice(appUserForm, appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), deviceRepository);
+                DeviceService.updateDevice(appUserForm, appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), appUserForm.getCollaborator(), appUserForm.getDesk(), deviceRepository);
             }
             Integer id = DeviceService.getDeviceByName(appUserForm.getName(), deviceRepository).getId();
             return "redirect:/device/updateDevice?id=" + id;
         }
         // Other error!!
         catch (Exception e) {
-        	System.out.println("################# " + appUserForm.getName() + "," + appUserForm.getType() + "," + appUserForm.getNumber());
             System.out.println("error");
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "addDevice";
         }
+    }
+
+    @RequestMapping(value = "/listDevice", method = RequestMethod.GET)
+    public String listDevice(Model model) {
+        List<Device> devices = deviceRepository.findAll();
+        model.addAttribute("deviceList", devices);
+        Device device = new Device();
+        model.addAttribute("appUserForm", device);
+        return "listDevice";
+    }
+
+    @RequestMapping(value = "/delete", method = RequestMethod.POST)
+    public String delete(Model model, //
+                         @ModelAttribute("appUserForm") @Validated Device appUserForm, //
+                         BindingResult result, //
+                         final RedirectAttributes redirectAttributes) {
+
+        // Validate result
+        if (result.hasErrors()) {
+            System.out.println("error Error: formulaire");
+            model.addAttribute("errorMessage", "Error: formulaire");
+            return "device/listDevice";
+        }
+        try {
+            Optional<Device> optionalDevice = deviceRepository.findById(appUserForm.getId());
+            if (optionalDevice.isPresent()){
+                Device device = optionalDevice.get();
+                DeviceService.deleteDevice(device, deviceRepository);
+            } else {
+                System.out.println("error device pas trouvé");
+                model.addAttribute("errorMessage", "Error: device pas trouvé");
+                return "redirect:device/listDevice";
+            }
+
+        }
+        // Other error!!
+        catch (Exception e) {
+            System.out.println("error get device");
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "device/listDevice";
+        }
+        return "redirect:/device/listDevice";
     }
 }

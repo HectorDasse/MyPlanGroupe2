@@ -1,19 +1,18 @@
 package com.example.myPlan.Entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Device {
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
-    private Integer id;
-    private String name;
+    public Integer id;
+    public String name;
     private String type; //interne/externe
     private String number;
+    @OneToOne
     private Collaborator collaborator;
+    @OneToOne
     private Desk desk;
 
     public Device(String name, String type, String number, Collaborator collaborator, Desk desk) {
@@ -34,7 +33,6 @@ public class Device {
     public Device() {
 
     }
-
 
     public Integer getId() {
         return id;
