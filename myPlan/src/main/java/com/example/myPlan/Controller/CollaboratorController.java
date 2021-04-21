@@ -3,7 +3,10 @@ package com.example.myPlan.Controller;
 
 import com.example.myPlan.Entities.Collaborator;
 import com.example.myPlan.Entities.Desk;
+import com.example.myPlan.Entities.Device;
 import com.example.myPlan.Repository.CollaboratorRepository;
+import com.example.myPlan.Repository.DeviceRepository;
+import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Service.CollaboratorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,14 +26,22 @@ public class CollaboratorController {
 
     @Autowired
     private CollaboratorRepository collaboratorRepository;
+    @Autowired
+    private DeviceRepository deviceRepository;
+    @Autowired
+    private DeskRepository deskRepository;
 
     // Show Register page.
     @RequestMapping(value = "/addCollaborator", method = RequestMethod.GET)
     public String addCollaborator(Model model) {
-
         Collaborator form = new Collaborator();
+        List<Desk> desks = (List<Desk>) deskRepository.findAll();
+        List<Device> devices = (List<Device>) deviceRepository.findAll();
+        
         model.addAttribute("title", "Ajouter un collaborateur");
         model.addAttribute("appUserForm", form);
+        model.addAttribute("devices", devices);
+        model.addAttribute("desks", desks);
 
         return "addCollaborator";
     }
