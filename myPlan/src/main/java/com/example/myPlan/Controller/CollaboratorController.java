@@ -2,6 +2,7 @@ package com.example.myPlan.Controller;
 
 
 import com.example.myPlan.Entities.Collaborator;
+import com.example.myPlan.Entities.Desk;
 import com.example.myPlan.Repository.CollaboratorRepository;
 import com.example.myPlan.Service.CollaboratorService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -77,6 +79,15 @@ public class CollaboratorController {
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "addCollaborator";
         }
+    }
+
+    @RequestMapping(value = "/listCollaborators", method = RequestMethod.GET)
+    public String listDesks(Model model) {
+        List<Collaborator> collaborators = collaboratorRepository.findAll();
+        model.addAttribute("collaboratorsList", collaborators);
+        Collaborator collaborator = new Collaborator();
+        model.addAttribute("appUserForm", collaborator);
+        return "listCollaborators";
     }
 
 }
