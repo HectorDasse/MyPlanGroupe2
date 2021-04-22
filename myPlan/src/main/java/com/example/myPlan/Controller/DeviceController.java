@@ -24,6 +24,7 @@ public class DeviceController {
 
     @Autowired
     private DeskRepository deskRepository;
+    @Autowired
     private DeviceRepository deviceRepository;
 
 
@@ -77,17 +78,21 @@ public class DeviceController {
         try {
 
             if (appUserForm.getId() == null) {
-                DeviceService.saveDevice(appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), appUserForm.getCollaborator(), appUserForm.getDesk(), deviceRepository);
+                DeviceService.saveDevice(appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), deviceRepository);
             } else {
                 //update
-                DeviceService.updateDevice(appUserForm, appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), appUserForm.getCollaborator(), appUserForm.getDesk(), deviceRepository);
+                DeviceService.updateDevice(appUserForm, appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), deviceRepository);
             }
-            Integer id = DeviceService.getDeviceByName(appUserForm.getName(), deviceRepository).getId();
-            return "redirect:/device/updateDevice?id=" + id;
+
+            List<Device> devices = deviceRepository.findAll();
+            model.addAttribute("deviceList", devices);
+            Device device = new Device();
+            model.addAttribute("appUserForm", device);
+            return "listDevices";
         }
         // Other error!!
         catch (Exception e) {
-            System.out.println("error");
+            System.out.println("error "  + e.getMessage());
             model.addAttribute("errorMessage", "Error: " + e.getMessage());
             return "addDevice";
         }
@@ -134,4 +139,37 @@ public class DeviceController {
         }
         return "redirect:/device/listDevices";
     }
+
+    @RequestMapping(value = "/redirectUpdate", method = RequestMethod.POST)
+    public String redirectUpdate(Model model, //
+                                 @ModelAttribute("appUserForm") @Validated Desk appUserForm, //
+                                 BindingResult result, //
+                                 final RedirectAttributes redirectAttributes) {
+
+        // Validate result
+        if (result.hasErrors()) {
+            System.out.println("error");
+            model.addAttribute("errorMessage", "Error: ");
+            return "desk/listDesks";
+        }
+        try {
+            Optional<Device> optionalDevice= deviceRepository.findById(appUserForm.getId());
+            if (optionalDevice.isPresent()){
+                Device device = optionalDevice.get();
+                return "redirect:updateDevice?id=" + device.getId();
+            } else {
+                System.out.println("error desk pas trouvé\"");
+                model.addAttribute("errorMessage", "Error: desk pas trouvé\"");
+                return "redirect:/device/listDevices";
+            }
+
+        }
+        // Other error!!
+        catch (Exception e) {
+            System.out.println("error get desk");
+            model.addAttribute("errorMessage", "Error: " + e.getMessage());
+            return "redirect:/device/listDevices";
+        }
+    }
+
 }

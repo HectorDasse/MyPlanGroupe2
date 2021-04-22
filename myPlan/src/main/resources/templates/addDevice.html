@@ -31,7 +31,7 @@
 <form th:action="@{/device/register}" th:object="${appUserForm}" method="POST">
     <table>
         <tr class="line">
-            <td>Number</td>
+            <td>Phone Number</td>
             <td><input type="tel" th:field="*{number}" pattern="[0-9+/]{4,13}" required/> </td>
         </tr>
         <tr class="line">
