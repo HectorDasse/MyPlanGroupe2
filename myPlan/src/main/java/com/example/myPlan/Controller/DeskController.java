@@ -144,6 +144,7 @@ public class DeskController {
         model.addAttribute("deskList", desks);
         Desk desk = new Desk();
         model.addAttribute("appUserForm", desk);
+        model.addAttribute("title", "Liste des bureaux");
         return "listDesks";
     }
 
@@ -156,6 +157,7 @@ public class DeskController {
             List<Desk> desks = deskRepository.findByCollaboratorLike(collaborator);
             model.addAttribute("deskList", desks);
             Desk desk = new Desk();
+            model.addAttribute("title", "Liste des bureaux du colloborateur : " + collaborator.getFirstName());
             model.addAttribute("appUserForm", desk);
             return "listDeskCollaborator";
         }else {
@@ -233,7 +235,7 @@ public class DeskController {
         List<Desk> desks = deskRepository.findByCollaboratorIsNull();
         model.addAttribute("deskList", desks);
         TransfereDesk transfereDesk = new TransfereDesk(appUserForm.getId(), 0);
-
+        model.addAttribute("title", "Liste des bureaux disponible ");
         model.addAttribute("appUserForm", transfereDesk);
         return "listDeskFree";
 
