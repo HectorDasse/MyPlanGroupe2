@@ -32,10 +32,6 @@ public class DeviceService {
                 deviceUpdated.setName(name);
                 deviceUpdated.setType(type);
                 deviceUpdated.setNumber(number);
-<<<<<<< HEAD
-
-=======
->>>>>>> 0bc813c5fd9fd800f7632b2196528f7946bb64f7
 
                 deviceRepository.save(deviceUpdated);
 

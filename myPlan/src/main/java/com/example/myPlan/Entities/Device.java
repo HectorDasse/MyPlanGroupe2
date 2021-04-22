@@ -12,18 +12,12 @@ public class Device {
     private String type; //interne/externe
     private String number;
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 0bc813c5fd9fd800f7632b2196528f7946bb64f7
     public Device(String name, String type, String number) {
         this.name = name;
         this.type = type;
         this.number = number;
-<<<<<<< HEAD
 
-=======
->>>>>>> 0bc813c5fd9fd800f7632b2196528f7946bb64f7
     }
 
     public Device() {
@@ -63,10 +57,7 @@ public class Device {
         this.number = number;
     }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> 0bc813c5fd9fd800f7632b2196528f7946bb64f7
     @Override
     public String toString() {
         return "Device{" +
