@@ -1,13 +1,13 @@
 package com.example.myPlan.Repository;
 
 
-import com.example.myPlan.Entities.Collaborator;
-import com.example.myPlan.Entities.Desk;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-import java.util.Optional;
+import com.example.myPlan.Entities.Collaborator;
+import com.example.myPlan.Entities.Desk;
 
 @Repository
 public interface DeskRepository extends JpaRepository<Desk, Integer> {

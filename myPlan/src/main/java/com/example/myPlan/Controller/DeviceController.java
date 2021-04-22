@@ -1,24 +1,28 @@
 package com.example.myPlan.Controller;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.example.myPlan.Entities.Collaborator;
 import com.example.myPlan.Entities.Desk;
 import com.example.myPlan.Entities.Device;
 import com.example.myPlan.Repository.CollaboratorRepository;
 import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Repository.DeviceRepository;
-import com.example.myPlan.Service.CollaboratorService;
-import com.example.myPlan.Service.DeskService;
 import com.example.myPlan.Service.DeviceService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
-import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping(path = "/device")
@@ -84,7 +88,6 @@ public class DeviceController {
             return "addDevice";
         }
         try {
-
             if (appUserForm.getId() == null) {
                 DeviceService.saveDevice(appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), appUserForm.getCollaborator(), appUserForm.getDesk(), deviceRepository);
             } else {

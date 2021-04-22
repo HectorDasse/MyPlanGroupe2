@@ -2,32 +2,32 @@ package com.example.myPlan.Entities;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
+
 import javax.persistence.Entity;
-import javax.persistence.Id;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
 
 @Entity
 public class MyPlanUser implements Serializable, UserDetails{
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Integer userId;
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	@Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private Integer userId;
     private String username;
     private String password;
+    private boolean isAccountNonExpired = false;
+    private boolean isAccountNonLocked = false;
+    private boolean isCredentialsNonExpired = false;
+    private boolean isEnabled = false;
 
     
 	public MyPlanUser() {
@@ -38,6 +38,16 @@ public class MyPlanUser implements Serializable, UserDetails{
 		this.password = password;
 	}
 
+	public MyPlanUser(Integer id, String username, String password, boolean isConnected) {
+		this.userId = id;
+		this.username = username;
+		this.password = password;
+	    isAccountNonExpired = isConnected;
+	    isAccountNonLocked = isConnected;
+	    isCredentialsNonExpired = isConnected;
+	    isEnabled = isConnected;
+	}
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		return null;
@@ -45,32 +55,32 @@ public class MyPlanUser implements Serializable, UserDetails{
 
 	@Override
 	public String getPassword() {
-		return null;
+		return this.password;
 	}
 
 	@Override
 	public String getUsername() {
-		return null;
+		return this.username;
 	}
 
 	@Override
 	public boolean isAccountNonExpired() {
-		return false;
+		return this.isAccountNonExpired;
 	}
 
 	@Override
 	public boolean isAccountNonLocked() {
-		return false;
+		return this.isAccountNonLocked;
 	}
 
 	@Override
 	public boolean isCredentialsNonExpired() {
-		return false;
+		return this.isCredentialsNonExpired;
 	}
 
 	@Override
 	public boolean isEnabled() {
-		return false;
+		return this.isEnabled;
 	}
 
 	public Integer getUserId() {

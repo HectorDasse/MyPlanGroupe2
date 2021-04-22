@@ -1,13 +1,13 @@
 package com.example.myPlan.Entities;
 
 import java.util.Date;
+
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import org.springframework.format.annotation.DateTimeFormat;
-
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 
 @Entity
 public class Collaborator {

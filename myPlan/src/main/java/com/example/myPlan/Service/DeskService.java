@@ -1,15 +1,16 @@
 package com.example.myPlan.Service;
 
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.ui.Model;
+
 import com.example.myPlan.Entities.Collaborator;
 import com.example.myPlan.Entities.Desk;
 import com.example.myPlan.Entities.Device;
 import com.example.myPlan.Repository.CollaboratorRepository;
 import com.example.myPlan.Repository.DeskRepository;
 import com.example.myPlan.Repository.DeviceRepository;
-import org.springframework.ui.Model;
-
-import java.util.List;
-import java.util.Optional;
 
 public class DeskService {
 

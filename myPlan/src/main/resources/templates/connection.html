@@ -12,10 +12,30 @@
         <div th:if="${param.logout}">
             You have been logged out.
         </div>
-        <form th:action="@{/login}" method="post">
-            <div><label> User Name : <input type="text" name="username"/> </label></div>
-            <div><label> Password: <input type="password" name="password"/> </label></div>
-            <div><input type="submit" value="Sign In"/></div>
-        </form>
+        
+		<form th:action="@{/user/loginCheck}" th:object="${appUserForm}" method="POST">
+	        <table>
+		        <tr class="line">
+		            <td>Login</td>
+		            <td><input type="text" th:field="*{username}" pattern="[a-zA-ZÀ-ÿ-']{1,128}" required/> </td>
+		        </tr>
+		        <tr class="line">
+		            <td>Password</td>
+		            <td><input type="password" th:field="*{password}" pattern="[a-zA-ZÀ-ÿ-']{1,128}" required/> </td>
+		        </tr>
+		        <tr class="line">
+		            <td><input type="hidden" th:field="*{userId}" /> </td>
+		        </tr>
+		
+		        <tr class="line">
+		            <td>&nbsp;</td>
+		            <td>
+		                <input type="submit" value="Submit" />
+		                <a th:href="@{/}">Cancel</a>
+		            </td>
+		            <td>&nbsp;</td>
+		        </tr>
+		    </table>
+	    </form>
     </body>
 </html>
