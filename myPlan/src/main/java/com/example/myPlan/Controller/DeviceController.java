@@ -62,9 +62,7 @@ public class DeviceController {
         if (optionalDevice.isPresent()) {
             Device device = optionalDevice.get();
 
-            List<Device> devices = deviceRepository.findAll();
-            model.addAttribute("DevicesObject", devices);
-            model.addAttribute("title", "Ajouter un bureau");
+            model.addAttribute("title", "Ajouter une machine");
             model.addAttribute("appUserForm", device);
 
             return "addDevice";
@@ -86,10 +84,10 @@ public class DeviceController {
         try {
 
             if (appUserForm.getId() == null) {
-                DeviceService.saveDevice(appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), appUserForm.getCollaborator(), appUserForm.getDesk(), deviceRepository);
+                DeviceService.saveDevice(appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), deviceRepository);
             } else {
                 //update
-                DeviceService.updateDevice(appUserForm, appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), appUserForm.getCollaborator(), appUserForm.getDesk(), deviceRepository);
+                DeviceService.updateDevice(appUserForm, appUserForm.getName(), appUserForm.getType(), appUserForm.getNumber(), deviceRepository);
             }
             Integer id = DeviceService.getDeviceByName(appUserForm.getName(), deviceRepository).getId();
             return "redirect:/device/updateDevice?id=" + id;

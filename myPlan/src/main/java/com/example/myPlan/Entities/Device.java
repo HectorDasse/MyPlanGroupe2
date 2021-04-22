@@ -11,24 +11,11 @@ public class Device {
     private String name;
     private String type; //interne/externe
     private String number;
-    @OneToOne
-    private Collaborator collaborator;
-    @OneToOne
-    private Desk desk;
 
-    public Device(String name, String type, String number, Collaborator collaborator, Desk desk) {
+    public Device(String name, String type, String number) {
         this.name = name;
         this.type = type;
         this.number = number;
-        this.collaborator = collaborator;
-        this.desk = desk;
-    }
-
-    public Device(String name, String type, String number, Desk desk) {
-        this.name = name;
-        this.type = type;
-        this.number = number;
-        this.desk = desk;
     }
 
     public Device() {
@@ -66,22 +53,6 @@ public class Device {
 
     public void setNumber(String number) {
         this.number = number;
-    }
-
-    public Collaborator getCollaborator() {
-        return collaborator;
-    }
-
-    public void setCollaborator(Collaborator collaborator) {
-        this.collaborator = collaborator;
-    }
-
-    public Desk getDesk() {
-        return desk;
-    }
-
-    public void setDesk(Desk desk) {
-        this.desk = desk;
     }
 
     @Override

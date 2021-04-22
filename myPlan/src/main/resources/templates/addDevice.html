@@ -46,30 +46,7 @@
             <input type="radio" th:field="*{type}" id="External" name="type" value="External" checked>
 				<label for="External">External</label>
         </tr>
-        <tr class="line">
-            <td>Desk</td>
-            <td>
-                <select>
-                    <option value=""> -- </option>
-                    <option
-                            th:each="itemDesk : ${desks}"
-                            th:value="${itemDesk.id}"
-                            th:utext="${itemDesk.numero}" />
-                </select>
-            </td>
-        </tr>
-        <tr class="line">
-            <td>Collaborator</td>
-            <td>
-                <select>
-                    <option value=""> -- </option>
-                    <option
-                            th:each="itemCollaborator : ${collaborators}"
-                            th:value="${itemCollaborator.id}"
-                            th:utext="${itemCollaborator.firstName}" />
-                </select>
-            </td>
-        </tr>
+
         <tr class="line">
             <td><input type="hidden" th:field="*{id}" /> </td>
         </tr>
