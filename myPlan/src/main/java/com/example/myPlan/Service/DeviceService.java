@@ -14,6 +14,7 @@ public class DeviceService {
             Device device = new Device(name, type, number);
             deviceRepository.save(device);
 
+
             return true;
         } catch (Exception e){
 
@@ -32,6 +33,8 @@ public class DeviceService {
                 deviceUpdated.setNumber(number);
 
                 deviceRepository.save(deviceUpdated);
+
+
 
             }
         } catch (Exception e) {
