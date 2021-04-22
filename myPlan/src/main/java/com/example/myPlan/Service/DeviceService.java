@@ -14,6 +14,7 @@ public class DeviceService {
             Device device = new Device(name, type, number, collaborator, desk);
             deviceRepository.save(device);
 
+
             return true;
         } catch (Exception e){
 
@@ -34,6 +35,8 @@ public class DeviceService {
                 deviceUpdated.setDesk(desk);
 
                 deviceRepository.save(deviceUpdated);
+
+
 
             }
         } catch (Exception e) {
