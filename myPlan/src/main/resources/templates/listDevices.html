@@ -33,6 +33,7 @@
         <td th:text="${device.type}"></td>
         <td th:text="${device.number}"></td>
         <td th:text="${device.id}"></td>
+<<<<<<< HEAD
         <td>
             <form th:action="@{/device/delete}" th:object="${appUserForm}" method="POST">
                 <input type="hidden" name="id" th:value="${device.id}">
@@ -45,6 +46,8 @@
                 <button type="submit">Update</button>
             </form>
         </td>
+=======
+>>>>>>> 0bc813c5fd9fd800f7632b2196528f7946bb64f7
         <!-- <td><a data-toggle="modal" data-target="#editModal"><span class="glyphicon glyphicon-edit"></span></a></td> -->
     </tr>
 </table>

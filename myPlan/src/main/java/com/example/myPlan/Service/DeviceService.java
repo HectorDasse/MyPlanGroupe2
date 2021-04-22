@@ -14,6 +14,7 @@ public class DeviceService {
             Device device = new Device(name, type, number);
             deviceRepository.save(device);
 
+
             return true;
         } catch (Exception e){
             e.printStackTrace();
@@ -31,9 +32,14 @@ public class DeviceService {
                 deviceUpdated.setName(name);
                 deviceUpdated.setType(type);
                 deviceUpdated.setNumber(number);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 0bc813c5fd9fd800f7632b2196528f7946bb64f7
 
                 deviceRepository.save(deviceUpdated);
+
+
 
             }
         } catch (Exception e) {
